@@ -1,0 +1,38 @@
+{% extends 'admin/master.html' %}
+{% import 'admin/lib.html' as lib with context %}
+
+{% macro extra() %}
+  <input name="_add_another" type="submit" class="btn btn-default" value="{{ _gettext('Save and Add') }}" />
+{% endmacro %}
+
+{% block head %}
+  {{ super() }}
+  {{ lib.form_css() }}
+{% endblock %}
+
+{% block nav_menu_bar %}
+<ul class="nav nav-tabs">
+  <li>
+      <a href="{{ return_url }}">{{ _gettext('List') }}</a>
+  </li>
+  <li class="active">
+      <a href="javascript:void(0)">{{ _gettext('Create') }}</a>
+  </li>
+</ul>
+{% endblock %}
+
+{% block body %}
+  {{ lib.render_form(form, return_url, extra(), form_opts=form_opts) }}
+
+  {% if admin_view.script %}
+    <script type="text/javascript">
+        {{ admin_view.script | safe }}
+    </script>
+  {% endif %}
+
+{% endblock %}
+
+{% block tail %}
+  {{ super() }}
+  {{ lib.form_js() }}
+{% endblock %}

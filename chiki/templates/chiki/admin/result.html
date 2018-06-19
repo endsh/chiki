@@ -1,0 +1,47 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h4 class="modal-title">操作记录</h4>
+</div>
+
+<div class="modal-body">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="text-center modal-title">处理结果</p>
+          <hr>
+          <textarea id="result" class="form-control" name="result"  placeholder="处理结果" style="height:200px"　 disabled="disabled">{{ result }}</textarea>
+        </div>
+        <div class="col-md-6">
+          <p class="text-center modal-title">备注</p>
+          <hr>
+          <textarea id="remark" class="form-control" name="remark"  placeholder="备注" style="height:200px">{{ remark }}</textarea>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-success" id='btn_repair'>保存</button> 
+  <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $('#btn_repair').click(function(){
+      var result = $('#result').val()
+      var remark = $('#remark').val()
+        id = "{{ id }}"
+      $.post('/admin/complaint/saveresult', {id: id, result: result, remark: remark}, function(data){
+        if (data.code == 0) {
+          $('#datamsg').remove()
+          $('.row').before('<div class="alert alert-success" id="datamsg">保存成功</div>')
+        } else {
+          $('#datamsg').remove()
+          var msg = '<div class="alert alert-info" id="datamsg">'+data.msg+'</div>';
+          $('.row').before(msg)
+        }
+      })
+    })
+  })
+</script>

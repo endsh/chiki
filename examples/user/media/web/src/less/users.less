@@ -1,0 +1,153 @@
+//
+// Users
+// --------------------------------------------------
+
+.users {
+    background: #f3f3f3;
+
+    .header {
+        margin-top: 40px;
+        text-align: center;
+    }
+
+    .main {
+        margin-top: 30px;
+    }
+
+    .box {
+        background: #fff;
+        padding: 20px 30px 30px;
+        border-radius: 4px;
+        box-shadow: 1px 1px 3px #e6e6e6;
+        margin-bottom: 20px;
+
+        h3 {
+            margin-top: 0;
+            margin-bottom: 14px;
+            font-size: 18px;
+            color: #777;
+            text-align: center;
+        }
+
+        .nav-tabs {
+            border: none;
+            margin-bottom: 15px;
+        }
+
+        .nav-tabs > li {
+            text-align: center;
+            border-bottom: 1px solid #eee;
+
+            &.active {
+                border-bottom: 1px solid @blue;
+            }
+
+            a {
+                padding: 10px 0;
+                border: none;
+                color: #333;
+                background: #fff;
+            }
+
+            a:focus {
+                outline: none;
+            }
+
+            &.active > a {
+                border: none;
+                color: @blue;
+            }
+        }
+
+        .nav-tabs.nav-justified > li {
+            display: table-cell;
+            width: 1%;
+        }
+
+        .message-box {
+        	position: relative;
+        	padding: 0 1px;
+        }
+
+        .message {
+        	position: absolute;
+        	top: 0;
+        	width: 100%;
+        	margin: 0 -1px;
+
+        	.alert {
+        		padding: 10px 15px;
+        	}
+        }
+    }
+
+    .auth-form {
+        .form-control,
+        .btn {
+            height: 42px;
+            padding: 8px 15px;
+        }
+
+        .form-control {
+            background-color: #fbfbfb;
+        }
+
+        .form-control:focus {
+            background-color: #fefefe;
+            border-color: @blue;
+            outline: 0px none;
+            box-shadow: none;
+        }
+
+        .form-control[disabled], 
+        .form-control[readonly], 
+        fieldset[disabled] .form-control {
+            cursor: not-allowed;
+            background-color: #EEE;
+            opacity: 1;
+        }
+    }
+
+    .resend.disabled {
+        color: #888;
+        text-decoration: none;
+        cursor: text;
+    }
+
+    .auth-form-group {
+        position: relative;
+    }
+
+    .auth-form-group a {
+        color: @blue;
+        display: inline-block;
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        cursor: pointer;
+    }
+
+    .auth-form .auth-form-group .form-control {
+        padding-right: 90px;
+    }
+
+    .auth-form .btn + .btn {
+        margin-top: 15px;
+    }
+
+    .footer {
+        margin-bottom: 40px;
+
+        .links {
+            color: #ccc;
+            background: transparent;
+            padding: 10px 20px;
+            border: none;
+        }
+
+        a, .btn-link {
+            color: #999;
+            padding: 0 12px;
+        }
+    }
+}

@@ -1,0 +1,37 @@
+{% extends 'admin/base.html' %}
+{% block title %}{{ SITE_ANEM }}{% endblock %}
+{% block body_class %}users{% endblock %}
+
+{% block page_body %}
+<div>
+    <div class="header">
+        {% block header %}
+        <h1 class="logo">
+            <span class="logo-cool">{{ SITE_ANEM }}</span>
+        </h1>
+        {% endblock %}
+    </div><!-- /.header -->
+    <div class="main">
+        <div class="{% block main_class %}container{% endblock %}" style="max-width: 1170px;">
+            <div class="row">
+                <div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3">
+                    <div class="box">
+                        <div class="login">
+                            <div class="message-box">
+                                <ul class="nav nav-tabs nav-justified" role="tablist">
+                                    <li role="presentation" class="active"><a>用户登录</a></li>
+                                </ul>
+                                <div class="message">{{ form | alert }}</div>
+                            </div>
+                            <form class="auth-form login-form" action="{{ url_for('admin_users.admin_login') }}" method="post" data-next="{{ next }}">
+                                {{ form | kform_inline }}
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">登录</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

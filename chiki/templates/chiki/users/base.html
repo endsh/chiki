@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block body_class %}users{% endblock %}
+{% block body %}
+<div class="main">
+	<div class="{% block main_class %}container{% endblock %}">
+		{% block main %}{% endblock %}
+	</div>
+</div><!-- /.main -->
+<div class="footer">
+	{% block footer %}{% endblock %}
+</div>
+{% endblock %}

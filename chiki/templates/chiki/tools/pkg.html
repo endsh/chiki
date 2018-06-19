@@ -1,0 +1,6 @@
+{% extends 'admin/tab.html' %}
+{% import 'admin/lib.html' as lib with context %}
+
+{% block main %}
+    {{ lib.render_form(form, '/admin/toolsview/') }}
+{% endblock %}

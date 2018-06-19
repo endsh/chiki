@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="keywords" content="{% block keywords %}{% endblock %}">
+    <meta name="description" content="{% block description %}{% endblock %}">
+    <title>
+        {%- block title -%}{{ SITE_NAME }}{%- endblock -%}
+    </title>
+    <link rel="shortcut icon" href="{{ static_url('img/favicon.ico') }}">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/jquery-weui/0.8.3/css/jquery-weui.min.css">
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    {% block static_header %}{{ static_header() }}{% endblock %}
+    {% block static_ie8 %}{{ static_ie8() }}{% endblock %}
+    {% block header_script %}{% endblock %}
+    <style type='text/css'>
+        .jb-bg{
+          background-color: #efeff2;
+        }
+          .weui_cells_title {
+            margin-top: 0;
+          }
+
+        .statuc-box {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 30px 15px;
+        }
+        .statuc-static {
+          padding: 10px 0;
+        }
+
+        .statuc-desc {
+          text-align: center;
+          font-size: 12px;
+          color: #9e9ea1;
+        }
+
+        .static-footer-box {
+          width: 100%;
+          margin-top: 15px;
+        }
+
+        .footer-box{
+          margin-top: 15px;
+          padding: 0 15px;
+        }
+
+
+        .weui_cells {
+          margin-top: 0;
+          background-color:#fff;
+          color: #000;
+          font-size: 17px;
+        }
+
+        .weui_cells .weui_cell:active:not(.no_access){
+          background-color: #efeff2;
+        }
+        .weui_cells .weui_cell:hover, .weui_cells .weui_cell:focus{
+          background-color: #fff;
+        }
+
+        .weui_cells .weui_cell:before{
+          border-top: 1px solid #D9D9D9;
+        }
+
+    </style>
+</head>
+<body class="{% block body_class %}jb-bg{% endblock %}">
+{% block body %}
+    {% block main %}{% endblock %}
+{% endblock %}
+{% block footer_script %}{% endblock %}
+{% block baidu_tongji %}
+<div style="display:none;">
+    {{ Item.data('tongji_script', '', name='统计代码') | safe }}
+</div>
+{% endblock %}
+</body>
+</html>

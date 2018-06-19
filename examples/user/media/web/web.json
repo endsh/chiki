@@ -1,0 +1,10 @@
+{
+  "name": "web",
+  "title": "Web",
+  "description": "This is a HaoKu Web Project.",
+  "version": "1.0.0",
+  "homepage": "http://www.haoku.net/",
+  "author": {
+    "name": "XiaoKu Inc."
+  }
+}

@@ -1,0 +1,32 @@
+{% extends "users/base.html" %}
+
+{% block subtitle %}用户登录{% endblock %}
+
+{% block main %}
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3">
+		<div class="box">
+			<div class="login">
+				<div class="message-box">
+					<ul class="nav nav-tabs nav-justified" role="tablist">
+					  	<li role="presentation" class="active"><a>用户登录</a></li>
+					</ul>
+					<div class="message">{{ form | alert }}</div>
+				</div>
+				<form class="auth-form login-form" action="{{ url_for('users.login') }}" method="post" data-next="{{ next }}">
+					{{ form | kform_inline }}
+					<button type="submit" class="btn btn-primary btn-lg btn-block">登录</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div class="text-center links">
+	<a href="{{ url_for('users.reset_password') }}">找回密码</a> | 
+	<a href="/">首页</a> | 
+	<a href="{{ url_for('users.register') }}">注册账号</a>
+</div>
+{% endblock %}

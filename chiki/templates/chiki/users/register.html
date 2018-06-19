@@ -1,0 +1,88 @@
+{% extends "users/base.html" %}
+
+{% block subtitle %}用户注册{% endblock %}
+
+{% block main %}
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3">
+		<div class="box">
+			{% if um.allow_email %}
+			<div class="register-email" style="display:none">
+				<div class="message-box">
+					<ul class="nav nav-tabs nav-justified" role="tablist">
+					  	<li role="presentation" class="active"><a>使用邮箱注册</a></li>
+					</ul>
+					<div class="message">{{ email_form | alert }}</div>
+				</div>
+				<form class="auth-form register-email-form" method="post" data-send="#email" data-next="{{ next }}">
+					{{ email_form.csrf_token | kfield_inline }}
+					<div class="form-group auth-form-group">
+						{{ email_form.email(
+							class_="form-control",
+							data_label=email_form.email.label.text,
+							placeholder=email_form.email.label.text,
+							data_empty='true',
+							data_regx='^[\w\d]+[\d\w_.]+@([\d\w]+)\.([\d\w]+)(?:\.[\d\w]+)?$',
+						) }}
+						{% if um.allow_phone %}<a class="use-phone" href="javascript:;">手机注册</a>{% endif %}
+					</div>
+					<button type="submit" class="btn btn-primary btn-block btn-lg" autocomplete="off">注册</button>
+				</form>
+				<div class="access"></div>
+			</div>
+			{% endif %}
+			{% if um.allow_phone %}
+			<div class="register-phone" style="display:none">
+				<div class="message-box">
+					<ul class="nav nav-tabs nav-justified" role="tablist">
+					  	<li role="presentation" class="active"><a>使用手机号码注册</a></li>
+					</ul>
+					<div class="message">{{ phone_form | alert }}</div>
+				</div>
+				<form class="auth-form register-phone-form" method="post" data-send="#phone,.verify-code-box,#verify_code" data-access="#phone,#authcode" data-complete="#phone,#password" data-next="{{ next }}">
+					{{ phone_form.csrf_token | kfield_inline }}
+					<div class="form-group auth-form-group">
+						{{ phone_form.phone(
+							class_="form-control",
+							data_label=phone_form.phone.label.text,
+							placeholder=phone_form.phone.label.text,
+							data_empty='true',
+							data_regx='^1\d{10}$',
+						) }}
+						{% if um.allow_email %}<a class="use-email" href="javascript:;">邮箱注册</a>{% endif %}
+					</div>
+					<div class="verify-code-box">{{ phone_form.verify_code | kfield_inline }}</div>
+					<div class="form-group auth-form-group">
+						{{ phone_form.authcode(
+							class_="form-control",
+							data_label=phone_form.authcode.label.text,
+							placeholder=phone_form.authcode.label.text,
+							data_empty='true',
+							style="display:none"
+						) }}
+						<a class="resend disabled" href="javascript:;" style="display:none">重新发送</a>
+					</div>
+					{{ phone_form.password | kfield_inline(
+						style="display:none", 
+						data_empty='true',
+						data_min=6,
+						data_max=18,
+						data_strip='false',
+						data_regx='^[\w\d\-\[\]{}|\\,.\/<>;:\'"_`~!@#$%^&*()+= ]+$',
+					) }}
+					<button type="submit" class="btn btn-primary btn-block btn-lg" autocomplete="off">发送验证码</button>
+				</form>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div class="text-center links">
+	<a href="{{ url_for('users.login') }}">用户登录</a> | 
+	<a href="/">首页</a> | 
+	<a href="{{ url_for('users.reset_password') }}">找回密码</a>
+</div>
+{% endblock %}

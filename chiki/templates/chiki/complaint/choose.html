@@ -1,0 +1,47 @@
+{% extends "complaint/base.html" %}
+{% block main %}
+  <div class="why-box">
+    <div class="weui_cells_title">请选择举报原因</div>
+    <div class="weui_cells weui_cells_radio">
+      {% for x in type %}
+      <label class="weui_cell weui_check_label" for="{{ type.index(x) }}">
+        <div class="weui_cell_bd weui_cell_primary">
+          <p>{{ x[1] }}</p>
+        </div>
+        <div class="weui_cell_ft">
+          <input type="radio" class="weui_check" name="radio1" id="{{ type.index(x) }}",
+          data-type="{{ x[0] }}">
+          <span class="weui_icon_checked"></span>
+        </div>
+      </label>
+      {% endfor %}
+    </div>
+    <div class="footer-box">
+      <span class="ts-choose-btn weui_btn weui_btn_disabled weui_btn_primary">下一步</span>
+    </div>
+  </div>
+  <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+  <script src="http://cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
+  <script type="text/javascript">
+  var datas = $('input[name=radio1]');
+  var choose_id = "";
+  var data_type = "";
+  $.each(datas, function(index, obj) {
+    $(obj).change(function(event) {
+      $('.ts-choose-btn').removeClass('weui_btn_disabled');
+      choose_id = $(obj).attr('id');
+      data_type = $(obj).attr('data-type');
+    });
+  });
+
+  $('.ts-choose-btn').click(function(event) {
+      // event.preventDefault();
+      var data = {type: data_type}
+      if(choose_id != ""){
+        console.log("=======",choose_id);
+        window.location.href='/complaint/desc/?' + $.param(data)
+      }
+  });
+
+  </script>
+{% endblock %}

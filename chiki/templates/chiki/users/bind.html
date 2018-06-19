@@ -1,0 +1,106 @@
+{% extends "users/base.html" %}
+
+{% block subtitle %}帐号绑定{% endblock %}
+
+{% block main %}
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3">
+		<div class="box">
+			{% if um.need_email %}
+			<div class="bind-email" style="display:none">
+				<div class="message-box">
+					<ul class="nav nav-tabs nav-justified" role="tablist">
+					  	<li role="presentation" class="active"><a>绑定邮箱</a></li>
+					</ul>
+					<div class="message">{{ email_form | alert }}</div>
+				</div>
+				<form class="auth-form bind-email-form" method="post" data-send="#email" data-access="#email,#authcode" data-complete="#email,#password" data-next="{{ next }}">
+					{{ email_form.csrf_token | kfield_inline }}
+					<div class="form-group auth-form-group">
+						{{ email_form.email(
+							class_="form-control",
+							data_label=email_form.email.label.text,
+							placeholder=email_form.email.label.text,
+							data_empty='true',
+							data_regx='^[\w\d]+[\d\w_.]+@([\d\w]+)\.([\d\w]+)(?:\.[\d\w]+)?$',
+						) }}
+					</div>
+					<div class="form-group auth-form-group">
+						{{ email_form.authcode(
+							class_="form-control",
+							data_label=email_form.authcode.label.text,
+							placeholder=email_form.authcode.label.text,
+							style="display:none"
+						) }}
+						<a class="resend disabled" href="javascript:;" style="display:none">重新发送</a>
+					</div>
+					{{ email_form.password | kfield_inline(
+						data_empty='true',
+						data_min=6,
+						data_max=18,
+						data_strip='false',
+						data_regx='^[\w\d\-\[\]{}|\\,.\/<>;:\'"_`~!@#$%^&*()+= ]+$',
+					) }}
+					<button type="submit" class="btn btn-primary btn-block btn-lg" autocomplete="off">发送验证邮件</button>
+					{% if um.allow_phone %}<a class="btn btn-default btn-block btn-lg use-phone" href="javascript:;">绑定手机号码</a>{% endif %}
+				</form>
+				<div class="email-access"></div>
+			</div>
+			{% endif %}
+			{% if um.need_phone %}
+			<div class="bind-phone" style="display:none">
+				<div class="message-box">
+					<ul class="nav nav-tabs nav-justified" role="tablist">
+					  	<li role="presentation" class="active"><a>绑定手机号码</a></li>
+					</ul>
+					<div class="message">{{ phone_form | alert }}</div>
+				</div>
+				<form class="auth-form bind-phone-form" method="post" data-send="#phone,.verify-code-box,#verify_code" data-access="#phone,#authcode" data-complete="#phone,#password" data-next="{{ next }}">
+					{{ phone_form.csrf_token | kfield_inline }}
+					<div class="form-group auth-form-group">
+						{{ phone_form.phone(
+							class_="form-control",
+							data_label=phone_form.phone.label.text,
+							placeholder=phone_form.phone.label.text,
+							data_empty='true',
+							data_regx='^1\d{10}$',
+						) }}
+					</div>
+					<div class="verify-code-box">{{ phone_form.verify_code | kfield_inline }}</div>
+					<div class="form-group auth-form-group">
+						{{ phone_form.authcode(
+							class_="form-control",
+							data_label=phone_form.authcode.label.text,
+							placeholder=phone_form.authcode.label.text,
+							data_empty='true',
+							style="display:none"
+						) }}
+						<a class="resend disabled" href="javascript:;" style="display:none">重新发送</a>
+					</div>
+					{{ phone_form.password | kfield_inline(
+						style="display:none",
+						data_empty='true',
+						data_min=6,
+						data_max=18,
+						data_strip='false',
+						data_regx='^[\w\d\-\[\]{}|\\,.\/<>;:\'"_`~!@#$%^&*()+= ]+$',
+					) }}
+					<button type="submit" class="btn btn-primary btn-lg btn-block" autocomplete="off">发送验证码</button>
+					{% if um.allow_email %}<a class="btn btn-default btn-block btn-lg use-email" href="javascript:;">绑定邮箱</a>{% endif %}
+				</form>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% if um.config.oauth_model != 'force' %}
+<div class="text-center links">
+	<form class="bind-auto-form" method="post">
+		<button type="submit" class="btn btn-link">跳过帐号绑定</button>
+	</form>
+</div>
+{% endif %}
+{% endblock %}

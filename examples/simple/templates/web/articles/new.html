@@ -1,0 +1,12 @@
+{% extends "articles/base.html" %}
+
+{% block main %}
+<h3 class="page-title">创建文章</h3><hr>
+<form class="form-horizontal" method="post" enctype="multipart/form-data">
+    {{ form | kform(error=False) }}
+    <div class="form-actions">
+        <input name="commit" value="创建" class="btn btn-success project-submit" tabindex="4" type="submit">
+        <a class="btn btn-default pull-right" href="{{ url_for('.index')}}">取消</a>
+    </div>
+</form>
+{% endblock %}

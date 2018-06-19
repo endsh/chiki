@@ -1,0 +1,511 @@
+body {
+    background: #fff;
+    padding: 0;
+}
+
+.table > thead > tr > th, 
+.table > tbody > tr > th, 
+.table > tfoot > tr > th, 
+.table > thead > tr > td, 
+.table > tbody > tr > td, 
+.table > tfoot > tr > td {
+    vertical-align: middle;
+}
+
+.table td a {
+    color: #333;
+}
+
+.avatar {
+    width:40px; 
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    margin: 4px 2px;
+}
+
+.fa.fa-2 {
+    font-size: 1.5em;
+}
+
+.spm {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background: #fff;
+    text-align: center;
+    padding: 5px 0;
+    color: #333;
+}
+
+.sm .sidebar .nav-second-level li a {
+    padding: 10px 15px;
+    background: #fbfbfb;
+}
+
+.sm .sidebar .nav-second-level li a:hover,
+.sm .sidebar .nav-second-level li a:active,
+.sm .sidebar .nav-second-level li a.active {
+    background: #f5f5f5;
+}
+
+.side-toggle {
+    position: fixed;
+    bottom: 0;
+    width: 200px;
+    border-top: 1px solid #e7e7e7;
+    border-right: 1px solid #e7e7e7;
+}
+
+.nav.side-toggle > li > a {
+    background-color: #f8f8f8;
+}
+
+.navbar-default {
+    background: #fff;
+}
+
+.navbar-default .nav > li > a {
+    color: #555;
+}
+
+.navbar-default .nav > li > a:hover,
+.navbar-default .nav > li > a:focus {
+    background-color: #fbfbfb;
+}
+
+.btn-default:hover,
+.btn-default:active,
+.btn-default.active {
+    background-color: #fbfbfb;
+}
+
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+    background-color: #fbfbfb;
+    border-color: #e7e7e7;
+}
+
+.container {
+    width: 100%;
+    padding: 0 20px;
+}
+
+.nav-menu-bar {
+    position: absolute;
+    left: 200px;
+    top: 9px;
+    right: 0;
+}
+
+.form-control {
+    background-color: #fbfbfb;
+    box-shadow: none;
+}
+
+.form-control:focus {
+    background-color: #fff;
+    border-color: #66AFE9;
+    outline: 0px none;
+    box-shadow: none;
+}
+
+.nav li a i:first-child {
+    width: 16px;
+    margin-right: 4px;
+    display: inline-block;
+}
+
+@media (max-width: 768px) {
+    .side-toggle {
+        display: none;
+    }
+    .navbar-collapse.in {
+        max-height: none;
+    }
+    .nav-menu-bar {
+        position: static;
+    }
+    .navbar-nav {
+        margin: 0 -15px;
+    }
+    .nav-menu-bar .container {
+        padding: 0;
+    }
+    .nav-menu-bar li[role=presentation] {
+        display: block;
+        float: none;
+        clear: both;
+        text-align: center;
+        padding-top: 5px;
+    }
+
+    .nav-menu-bar li[role=presentation] > div > * {
+        display: block;
+        margin: 5px 0;
+    }
+
+    .navbar-fixed-top {
+        position: static;
+    }
+    .model-list {
+        position: relative;
+        margin-top: 20px;
+        margin-bottom: 21px;
+        z-index: 999;
+    }
+}
+
+@media (min-width: 768px) {
+
+    .sidebar {
+        position: fixed;
+        width: 200px;
+        overflow-y: scroll;
+        top: 0;
+        bottom: 41px;
+        border-right: 1px solid #e7e7e7;
+    }
+
+    .sm .sidebar,
+    .sm .side-toggle { 
+        width: 125px;
+    }
+
+    #page-wrapper {
+        position: absolute;
+        padding-top: 20px;
+        top: 51px;
+        left: 200px;
+        bottom: 0;
+        right: 0;
+        overflow-y: scroll;
+    }
+
+    div.container > .admin-form {
+        margin-top: 0;
+    }
+
+    .admin-form hr {
+        display: none;
+    }
+
+    .wrapper .pagination, .page-form hr + .form-group {
+        position: fixed;
+        background: #fff;
+        left: 200px;
+        bottom: 0;
+        right: 0;
+        margin: 0;
+        padding: 15px 20px;
+        z-index: 1000;
+        border-top: 1px solid #e7e7e7;
+        border-radius: 0px;
+    }
+
+    .modal-dialog hr + .form-group {
+        position: static;
+    }
+
+    .sm .nav-menu-bar,
+    .sm #page-wrapper, 
+    .sm .pagination, 
+    .sm .page-form hr + .form-group {
+        left: 125px;
+    }
+}
+
+
+.save-btn-box {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    padding: 15px 30px 15px 15px;
+    border-top: 1px solid #eee;
+}
+
+.drag-part {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 5px;
+  min-height: 60px;
+}
+
+.drag-part::after {
+  clear: both;
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.gu-mirror input[type="checkbox"],
+.drag-part input[type="checkbox"] {
+    display: none;
+}
+
+.drag-part + .drag-part {
+    margin-top: 20px;
+}
+
+/*
+ * note that styling gu-mirror directly is a bad practice because it's too generic.
+ * you're better off giving the draggable elements a unique class and styling that directly!
+ */
+.drag-part > div,
+.gu-mirror {
+  margin: 5px;
+  padding: 10px 15px;
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: opacity 0.4s ease-in-out;
+  float: left;
+}
+.drag-part > div {
+  cursor: move;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}
+.gu-mirror {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
+.drag-part .ex-moved {
+  background-color: #e74c3c;
+}
+.drag-part.ex-over {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.drag-part label {
+    margin: 0;
+}
+
+.fa-hover a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    color: #222;
+    line-height: 32px;
+    height: 32px;
+    padding-left: 10px;
+    border-radius: 4px;
+}
+
+.fa-hover a:hover {
+    background-color: #1d9d74;
+    color: #fff;
+    text-decoration: none;
+}
+
+#drag-models > div,
+#drag-cates > div {
+    float: left;
+    width: 32%;
+    display: block;
+}
+
+#drag-cates + #drag-models {
+    margin-top: 0;
+    border-top: 3px dashed #ddd;
+}
+
+#drag-res {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+#drag-res > div,
+#drag-res .drag-part > div {
+    float: none;
+}
+
+#drag-models > div .drag-handle {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.auto-page {
+    position: fixed;
+    top: 50px;
+    bottom: 0;
+    left: 215px;
+    right: 0;
+}
+
+.sm .auto-page {
+    left: 140px;
+}
+
+.auto-page .col-sm-8,
+.auto-page .col-sm-4 {
+    padding: 0;
+}
+
+.auto-page > * {
+    height: 100%;
+    background: #fbfbfb;
+    border: 1px dashed #e7e7e7;
+    overflow-y: auto;
+    position: relative;
+    padding: 10px;
+}
+
+.auto-page .col-sm-4 > .drag-part {
+    position: absolute;
+    overflow-y: auto;
+    top: 0;
+    left: 0;
+    right: 15px;
+    bottom: 65px;
+    padding-bottom: 10px;
+}
+
+#drag-res > div:last-child {
+    margin-bottom: 10px;
+}
+
+.drag-part > div .drag-handle + .drag-part {
+    min-height: 20px;
+    margin-top: 10px;
+}
+
+.modal-open {
+    overflow: auto;
+}
+
+.users {
+  background: #f3f3f3;
+}
+.users .header {
+  margin-top: 40px;
+  text-align: center;
+}
+.users .logo {
+  font-size: 60px;
+}
+.users .logo-cool {
+  color: #3c3c3c;
+}
+.users .logo-note {
+  color: #289e5e;
+}
+.users .slogan {
+  font-size: 20px;
+  margin-top: 0;
+}
+.users .box {
+  background: #fff;
+  padding: 20px 30px 30px;
+  border-radius: 4px;
+  box-shadow: 1px 1px 3px #e6e6e6;
+  margin-bottom: 20px;
+}
+.users .box h3 {
+  margin-top: 0;
+  margin-bottom: 14px;
+  font-size: 18px;
+  color: #777;
+  text-align: center;
+}
+.users .box .nav-tabs {
+  border: none;
+  margin-bottom: 15px;
+}
+.users .box .nav-tabs > li {
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+.users .box .nav-tabs > li.active {
+  border-bottom: 1px solid #30a4e6;
+}
+.users .box .nav-tabs > li a {
+  padding: 10px 0;
+  border: none;
+  color: #333;
+  background: #fff;
+}
+.users .box .nav-tabs > li a:focus {
+  outline: none;
+}
+.users .box .nav-tabs > li.active > a {
+  border: none;
+  color: #30a4e6;
+}
+.users .box .nav-tabs.nav-justified > li {
+  display: table-cell;
+  width: 1%;
+}
+.users .box .message-box {
+  position: relative;
+  padding: 0 1px;
+}
+.users .box .message {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  margin: 0 -1px;
+}
+.users .box .message .alert {
+  padding: 10px 15px;
+}
+.users .auth-form .form-control,
+.users .auth-form .btn {
+  height: 42px;
+  padding: 8px 15px;
+}
+.users .auth-form .form-control {
+  background-color: #fbfbfb;
+}
+.users .auth-form .form-control:focus {
+  background-color: #fefefe;
+  border-color: #30a4e6;
+  outline: 0px none;
+  box-shadow: none;
+}
+.users .auth-form .form-control[disabled],
+.users .auth-form .form-control[readonly],
+.users .auth-form fieldset[disabled] .form-control {
+  cursor: not-allowed;
+  background-color: #EEE;
+  opacity: 1;
+}
+.users .resend.disabled {
+  color: #888;
+  text-decoration: none;
+  cursor: text;
+}
+.users .auth-form-group {
+  position: relative;
+}
+.users .auth-form-group a {
+  color: #30a4e6;
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+}
+.users .auth-form .auth-form-group .form-control {
+  padding-right: 90px;
+}
+.users .auth-form .btn + .btn {
+  margin-top: 15px;
+}
+.users .footer {
+  margin-bottom: 40px;
+}
+.users .footer .links {
+  color: #ccc;
+  background: transparent;
+  padding: 10px 20px;
+  border: none;
+}
+.users .footer a,
+.users .footer .btn-link {
+  color: #999;
+  padding: 0 12px;
+}

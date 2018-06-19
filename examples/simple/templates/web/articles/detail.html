@@ -1,0 +1,9 @@
+{% extends "articles/base.html" %}
+
+{% block main %}
+    <h1 class="page-title">{{ art.title }}</h1>
+    <p>{{ art.created | time2best }}</p>
+    <div class="article-content">
+        {{ art.content | text2html }}
+    </div>
+{% endblock %}

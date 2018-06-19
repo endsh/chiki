@@ -1,0 +1,43 @@
+{% extends "users/base.html" %}
+
+{% block subtitle %}用户登录{% endblock %}
+{% block header_script %}
+<script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+{% endblock %}
+
+{% block main %}
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3">
+		<div class="box">
+			<div class="login">
+				<div class="message-box">
+					<ul class="nav nav-tabs nav-justified" role="tablist">
+					  	<li role="presentation" class="active"><a href="#tab-login" aria-controls="tab-login" role="tab" data-toggle="tab">帐号</a></li>
+					  	<li role="presentation"><a href="#tab-wechat-login" aria-controls="tab-wechat-login" role="tab" data-toggle="tab">微信</a></li>
+					</ul>
+					<div class="message">{{ form | alert }}</div>
+				</div>
+				<div class="tab-content">
+					<div id="tab-login" class="tab-pane active" role="tabpanel">
+						<form class="auth-form login-form" action="{{ url_for('users.login') }}" method="post">
+							{{ form | kform_inline }}
+							<button type="submit" class="btn btn-primary btn-lg btn-block">登录</button>
+						</form>
+					</div>
+					<div id="tab-wechat-login" class="tab-pane" role="tabpanel" style="max-height:280px;overflow:hidden; text-align:center;">
+					</div>
+				</div>
+				<script src="/weixin-login.js?id=tab-wechat-login"></script>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div class="text-center links">
+	<a href="{{ url_for('users.reset_password') }}">找回密码</a> | 
+	<a href="/">首页</a> | 
+	<a href="{{ url_for('users.register') }}">注册账号</a>
+</div>
+{% endblock %}

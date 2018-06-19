@@ -1,0 +1,27 @@
+#!/bin/sh
+export SIMPLE_ADMIN="/home/simple/simple/etc/admin.cfg"
+export SIMPLE_API="/home/simple/simple/etc/api.cfg"
+export SIMPLE_WEB="/home/simple/simple/etc/web.cfg"
+
+alias chk="cd ~/simple"
+alias admin-start="uwsgi --ini ~/simple/etc/uwsgi-admin.ini"
+alias admin-stop="uwsgi --stop ~/simple/run/admin.pid"
+alias admin-reload="uwsgi --reload ~/simple/run/admin.pid"
+
+alias api-start="uwsgi --ini ~/simple/etc/uwsgi-api.ini"
+alias api-stop="uwsgi --stop ~/simple/run/api.pid"
+alias api-reload="uwsgi --reload ~/simple/run/api.pid"
+
+alias web-start="uwsgi --ini ~/simple/etc/uwsgi-web.ini"
+alias web-stop="uwsgi --stop ~/simple/run/web.pid"
+alias web-reload="uwsgi --reload ~/simple/run/web.pid"
+
+
+alias uwsgi-start="admin-start && api-start && web-start"
+alias uwsgi-stop="admin-stop && api-stop && web-stop"
+alias uwsgi-reload="admin-reload && api-reload && web-reload"
+
+
+source /usr/local/bin/virtualenvwrapper.sh
+workon simple
+cd ~/simple

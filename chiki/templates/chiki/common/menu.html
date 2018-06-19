@@ -1,0 +1,121 @@
+{% extends "admin/model/tab.html" %}
+
+{% block main %}
+    <div class="row auto-page">
+        <div class="col-sm-8">
+            <div id="drag-cates" class="drag-part dragula-container">
+                {% for view in cates.itervalues() %}
+                <div class="drag-item" data-id="{{ view.id }}">
+                    <div class="drag-handle">
+                        <i class="fa fa-{{ view.icon or 'file-o' }}"></i>{{ view.name }} - {{ view.id }}
+                    </div>
+                    <div class="drag-part dragula-container">
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div id="drag-models" class="drag-part dragula-container">
+                {% for view in views.itervalues() %}
+                <div class="drag-item" data-id="{{ view.id }}">
+                    <div class="drag-handle">
+                        <i class="fa fa-{{ view.icon or 'file-o' }}"></i>{{ view.name }} - {{ view.id }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div id="drag-res" class="drag-part dragula-container">
+                {% for view in right %}
+                    <div class="drag-item"data-id="{{ view.id }}">
+                        <div class="drag-handle">
+                            <i class="fa fa-{{ view.icon or 'file-o' }}"></i>{{ view.name }} - {{ view.id }}
+                        </div>
+                        {% if view.get('children') != None %}
+                        <div class="drag-part dragula-container">
+                            {% for child in view.children %}
+                            <div class="drag-item" data-id="{{ child.id }}">
+                                <div class="drag-handle">
+                                    <i class="fa fa-{{ child.icon or 'file-o' }}"></i>{{ child.name }} - {{ child.id }}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="save-btn-box">
+                <a class="btn btn-primary btn-block btn-save">保存菜单</a>
+            </div>
+        </div>
+    </div>            
+{% endblock %}
+
+{% block tail %}
+    {{ super() }}
+    <script type="text/javascript">
+        jQuery(function($) {
+            function toJSON($list) {
+                var res = new Array();
+                $.each($list.find('> .drag-item'), function (index, elem) {
+                    if ($(elem).find('.drag-part').length === 0) {
+                        res.push({id: $(elem).data('id')})
+                    } else {
+                        var item = {id:$(elem).data('id'), children: new Array()}
+                        $.each($(elem).find('.drag-item'), function (i, sub) {
+                            item['children'].push({id: $(sub).data('id')})
+                        })
+                        res.push(item)
+                    }
+                })
+                return res;
+            }
+
+            var cates = document.getElementById('drag-cates'),
+                models = document.getElementById('drag-models'),
+                res = document.getElementById('drag-res');
+
+            function initClick() {
+                $('.drag-item').click(function () {})
+                $('.drag-item').unbind('click').click(function () {
+                    var isCate = $(this).find('.drag-part').length === 1;
+                    if ($(this).parents('#drag-res').length === 1) {
+                        if (isCate) {
+                            $(cates).append($(this).clone());
+                        } else {
+                            $(models).append($(this).clone());
+                        }
+                    } else {
+                        $(res).append($(this).clone());
+                    }
+                    $(this).remove();
+                    initClick();
+                    return false;
+                })
+            }
+
+            dragula({
+                isContainer: function (el) {
+                    return el.classList.contains('dragula-container');
+                },
+                accepts: function (el, target, source, sibling) {
+                    var isCate = $(el).find('.drag-part').length === 1;
+                    if (isCate && (target === cates || target === res)) {
+                        return true;
+                    } else if (!isCate && target != cates) {
+                        return true;
+                    }
+                    return false;
+                }
+            })
+            initClick();
+
+            $('.btn-save').click(function () {
+                $.post('{{ admin_view.get_url(".save_menu") }}', { menus: JSON.stringify(toJSON($('#drag-res'))) }, function (data) {
+                    window.location.reload()
+                })
+            })
+        });
+    </script>
+{% endblock %}

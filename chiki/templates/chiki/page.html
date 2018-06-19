@@ -1,0 +1,7 @@
+{% extends "page-base.html" %}
+{% block title %}{{ page.name }}{% endblock %}
+{% if page.bg %}{% block body_class %}" style="background:{{page.bg}}"{% endblock %}{% endif %}
+
+{% block body %}
+<div class="page-content" style="{% if page.padding %}padding: 0 20px;{% endif %}{{ page.style }}">{{ page.content | safe }}</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'complaint/base.html' %}
+{% block main %}
+  <div class="jb-box statuc-box">
+    <div class="statuc-icon"><i class="weui_icon_msg weui_icon_success"></i></div>
+    <div class="statuc-static">
+      <p>已提交</p>
+    </div>
+    <div class="statuc-desc">
+      <p class="statuc-desc-text">你的投诉已提交审核，投诉单号：{{ num }}。我们会在7个工作日内处理，感谢你对平台的支持</p>
+    </div>
+
+    <div class="static-footer-box">
+      <a href="javascript:;" class="weui_btn weui_btn_primary btn-index">确定</a>
+    </div>
+  </div>
+  <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+  <script src="http://cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
+
+  <script type="text/javascript">
+  $('.btn-index').click(function(event) {
+      event.preventDefault();
+      window.location.href="{{ url_for('complaint_active') }}"
+  });
+
+  </script>
+{% endblock %}

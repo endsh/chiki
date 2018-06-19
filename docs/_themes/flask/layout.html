@@ -1,0 +1,19 @@
+{%- extends "basic/layout.html" %}
+{%- block extrahead %}
+  {{ super() }}
+  {% if theme_touch_icon %}
+  <link rel="apple-touch-icon" href="{{ pathto('_static/' ~ theme_touch_icon, 1) }}" />
+  {% endif %}
+  <link media="only screen and (max-device-width: 480px)" href="{{
+    pathto('_static/small_flask.css', 1) }}" type= "text/css" rel="stylesheet" />
+{% endblock %}
+{%- block relbar2 %}{% endblock %}
+{%- block footer %}
+    <div class="footer">
+      &copy; Copyright {{ copyright }}.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    </div>
+    <div style="display:none;">
+      <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1259962276'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1259962276' type='text/javascript'%3E%3C/script%3E"));</script>
+    </div>
+{%- endblock %}

@@ -1,0 +1,97 @@
+{% extends "admin/file/list.html" %}
+
+{% block file_list_table %}
+	<table class="table table-striped table-bordered model-list">
+        <thead>
+            <tr>
+                {% block list_header scoped %}
+                {% if actions %}
+                <th class="list-checkbox-column">
+                    <input type="checkbox" name="rowtoggle" class="action-rowtoggle" />
+                </th>
+                {% endif %}
+                <th class="col-md-1">&nbsp;</th>
+                <th>{{ _gettext('Name') }}</th>
+                <th>{{ _gettext('Size') }}</th>
+                {% endblock %}
+            </tr>
+        </thead>
+        {% for name, path, is_dir, size, date in items %}
+        <tr>
+            {% block list_row scoped %}
+            {% if actions %}
+            <td>
+                {% if not is_dir %}
+                <input type="checkbox" name="rowid" class="action-checkbox" value="{{ path }}" />
+                {% endif %}
+            </td>
+            {% endif %}
+            <td>
+                {% block list_row_actions scoped %}
+                {% if admin_view.can_rename and path and name != '..' %}
+                <a class="icon" href="{{ get_url('.rename', path=path) }}">
+                        <i class="glyphicon glyphicon-pencil"></i>
+                </a>
+                {% endif %}
+                {%- if admin_view.can_delete and path -%}
+                    {% if is_dir %}
+                        {% if name != '..' and admin_view.can_delete_dirs %}
+                        <form class="icon" method="POST" action="{{ get_url('.delete') }}">
+                            {{ delete_form.path(value=path) }}
+                            {{ delete_form.csrf_token }}
+                            <button onclick="return confirm('{{ _gettext('Are you sure you want to delete \\\'%(name)s\\\' recursively?', name=name) }}')">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </button>
+                        </form>
+                        {% endif %}
+                    {% else %}
+                    <form class="icon" method="POST" action="{{ get_url('.delete') }}">
+                        {{ delete_form.path(value=path) }}
+                        {{ delete_form.csrf_token }}
+                        <button onclick="return confirm('{{ _gettext('Are you sure you want to delete \\\'%(name)s\\\'?', name=name) }}')">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </button>
+                    </form>
+                    {% endif %}
+                {%- endif -%}
+                {% endblock %}
+            </td>
+            {% if is_dir %}
+            <td colspan="2">
+                <a href="{{ get_dir_url('.index', path)|safe }}">
+                    <i class="glyphicon glyphicon-folder-close"></i> <span>{{ name }}</span>
+                </a>
+            </td>
+            {% else %}
+            <td>
+                {% if admin_view.can_download %}
+                <a href="{{ get_file_url(path)|safe }}">{{ name }}</a>
+                {% else %}
+                {{ name }}
+                {% endif %}
+
+                {% if fileType(name) == 'zip' %}
+                （<a class="unzip" data-href="/admin/staticfileadmin/unzip?f_p={{path}}" href="#">解压</a>）
+                {% endif %}
+
+                {% if fileType(name) in ['png', 'jpg', 'gif'] %}
+                	|| 图片链接：<a href="{{ base_static_url }}{{ path }}">{{ base_static_url }}{{ path }}</a> <img class="img-file pull-right" src="{{ base_static_url }}{{ path }}"/>
+                {% endif %}
+
+                {% if fileType(name) in ['html'] %}
+                	|| 页面链接：<a href="{{ base_static_url }}{{ path }}">{{ base_static_url }}{{ path }}</a> 
+                {% endif %}
+
+                {% if fileType(name) in ['apk'] %}
+                	|| 下载链接：<a href="{{ base_static_url }}{{ path }}">{{ base_static_url }}{{ path }}</a> 
+                {% endif %}
+            </td>
+            <td>
+                {{ size|filesizeformat }}
+            </td>
+            {% endif %}
+            {% endblock %}
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

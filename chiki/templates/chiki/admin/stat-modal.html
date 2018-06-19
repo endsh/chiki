@@ -1,0 +1,188 @@
+<style>
+    .input {
+        display: inline-block;
+    }
+    .input input.form-control {
+        width: 110px;
+    }
+</style>
+<div class="modal-header">
+    <div style="padding: 0 15px;" class="pull-right">
+        <div class="input day-input" style="display: none;">
+            <span class="form-inline">
+                <input class="form-control" type="text" value="{{ start }}" id="start">
+            </span>
+            <span class="input-middle"> 至 </span> 
+            <span class="form-inline">
+                <input class="form-control" type="text" value="{{ end }}" id="end">
+            </span>
+        </div>
+        <div class="input hour-input" style="display: none;">
+            <span class="form-inline">
+                <input class="form-control" type="text" value="{{ end }}" id="day">
+            </span>
+        </div>
+        <div class="dropdown" style="display: inline-block;">
+            <button class="btn btn-default dropdown-toggle btn-stat-model" type="button" id="stat-model" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                按时统计 <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="stat-model">
+                <li><a class="btn-stat-hour" data-model="hour" href="javascript:void(0);">按时统计</a></li>
+                <li><a class="btn-stat-day" data-model="day" href="javascript:void(0);">按天统计</a></li>
+            </ul>
+        </div>
+        <span class="btn btn-default btn-stat" data-model="day" data-start="{{ month_start }}" data-end="{{ month_end }}" href="javascript:void(0);">最近一月</span>
+        <span class="btn btn-default btn-stat" data-model="day" data-start="{{ week_start }}" data-end="{{ week_end }}" href="javascript:void(0);">最近一周</span>
+        <span class="btn btn-default btn-stat" data-model="hour" data-day="{{ yesterday }}" href="javascript:void(0);">昨天</span>
+        <span class="btn btn-default btn-stat" data-model="hour" data-day="{{ today }}" href="javascript:void(0);">今天</span>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<div class="modal-body">
+    <div id="charts" data-url="{{ data_url }}" data-model="{{ model }}"></div>
+</div>
+
+<script type="text/javascript">
+$("a[data-target=#simple-modal]").unbind('click').click(function(ev) {
+    ev.preventDefault();
+    var target = $(this).attr("href");
+
+    $("#simple-modal .modal-content").load(target, function() {
+        $("#submit-modal").modal("show");
+    });
+});
+
+Date.prototype.format = function (fmt) { //author: meizz 
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+
+function createChart(selector, title, subtitle, suffix, axis, series) {
+    $(selector).highcharts({
+        title: { text: title, x: -20 },
+        subtitle: { text: subtitle, x: -20 },
+        xAxis: { categories: axis },
+        yAxis: { title: { text: suffix }, },
+        tooltip: { valueSuffix: suffix },
+        legend: { layout: 'vertical', align: 'right', verticalAlign: 'middle', borderWidth: 0 },
+        series: series
+    });
+}
+
+$(document).ready(function() { 
+    $('#start, #end, #day').daterangepicker({
+        singleDatePicker: true,
+        format: 'YYYY-MM-DD'
+    }); 
+});
+
+function create(model) {
+    var data;
+    if (model == 'day') {
+        $('#charts').data('model', 'day')
+        $('.hour-input').hide()
+        $('.day-input').show()
+        $('.btn-stat-model').html('按天统计 <span class="caret"></span>')
+        data = { start: $('#start').val(), end: $('#end').val(), model: model }
+    } else {
+        $('#charts').data('model', 'hour')
+        $('.day-input').hide()
+        $('.hour-input').show()
+        $('.btn-stat-model').html('按时统计 <span class="caret"></span>')
+        data = { day: $('#day').val(), model: model }
+    }
+
+    var success = function (data) {
+            if (data.code == 0) {
+                $('#charts').html('')
+                $.each(data.items, function (key, item) {
+                    $('#charts').append('<div id="' + key + '-chart" style="padding: 40px;"></div>')
+                    createChart('#' + key + '-chart', item.title, item.subtitle, 
+                        item.suffix, item.axis, item.series)
+                })
+            } else {
+                $('#modal-container').html('<h1>错误：' + data.msg + '</h1>')
+            }
+            
+            setTimeout(function () {
+                $('.nicescroll').getNiceScroll().resize();
+            }, 500);
+        },
+        error = function () {
+            $('#modal-container').html('<h1>数据加载错误！</h1>')
+        }
+    $.getJSON($('#charts').data('url'), data, success, error)
+}
+
+
+
+$(function () {
+    $('.btn-stat').click(function() {
+        if ($(this).data('model') === 'day') {
+            $('#start').val($(this).data('start'))
+            $('#end').val($(this).data('end'))
+        } else {
+            $('#day').val($(this).data('day'))
+        }
+        create($(this).data('model'))
+        return false;
+    });
+    $('.btn-stat-hour, .btn-stat-day').click(function () {
+        create($(this).data('model'))
+    })
+    $('#end,#start,#day').change(function () {
+        create($('#charts').data('model'))
+    })
+    create($('#charts').data('model'))
+})
+
+function prev(time) {
+    var dateStrs = $(time).val().split("-");
+    var year = parseInt(dateStrs[0], 10);
+    var month = parseInt(dateStrs[1], 10) - 1;
+    var day = parseInt(dateStrs[2], 10);
+    var date = new Date(year, month, day);
+    date.setDate(date.getDate() - 1);
+    $(time).val(date.format("yyyy-MM-dd"))
+    create($('#charts').data('model'))
+}
+
+function next(time) {
+    var dateStrs = $(time).val().split("-");
+    var year = parseInt(dateStrs[0], 10);
+    var month = parseInt(dateStrs[1], 10) - 1;
+    var day = parseInt(dateStrs[2], 10);
+    var date = new Date(year, month, day);
+    date.setDate(date.getDate() + 1);
+    $(time).val(date.format("yyyy-MM-dd"))
+    create($('#charts').data('model'))
+}
+
+function keyDown(e) {  
+　　   　　 var keycode = e.which;
+    if (keycode == 39) {
+        next('#start');
+    } else if (keycode == 38) {
+        next('#end');
+    } else if (keycode == 37) {
+        prev('#start');
+    } else if (keycode == 40) {
+        prev('#end')
+    } else if (keycode == 13) {
+        create('today')
+    } 
+　　  }
+　　  document.onkeydown = keyDown;
+</script>

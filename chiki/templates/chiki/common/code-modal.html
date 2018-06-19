@@ -1,0 +1,12 @@
+{% import 'admin/static.html' as admin_static with context%}
+{% import 'admin/lib.html' as lib with context %}
+
+{% block body %}
+  <div class="modal-body">
+     <pre>{{ obj.code_text }}</pre>
+  </div>
+{% endblock %}
+
+{% block tail %}
+  <script src="{{ admin_static.url(filename='admin/js/bs3_modal.js', v='1.0.0') }}"></script>
+{% endblock %}

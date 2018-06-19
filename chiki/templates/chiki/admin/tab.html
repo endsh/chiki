@@ -1,0 +1,45 @@
+{% extends 'admin/master.html' %}
+{% import 'admin/lib.html' as lib with context %}
+
+{% block head %}
+  {{ super() }}
+  {{ lib.form_css() }}
+{% endblock %}
+
+{% block nav_menu_bar %}
+<ul class="nav nav-tabs actions-nav">
+    {% block menu_tabs %}
+        {% if admin_view.tabs %}
+            {% for tab in admin_view.tabs %}
+                {% if request.endpoint.endswith(tab.endpoint) %}
+                <li class="active">
+                    <a href="javascript:void(0);" title="{{ tab.title }}">{{ tab.text }}</a>
+                </li>
+                {% else %}
+                <li>
+                    {% if tab.kwargs %}
+                        {% if callable(tab.kwargs) %}
+                            {% set tab_url = get_url(tab.endpoint, url=return_url, **tab.kwargs()) %}
+                        {% else %}
+                            {% set tab_url = get_url(tab.endpoint, url=return_url, **tab.kwargs) %}
+                        {% endif %}
+                    {% else %}
+                        {% set tab_url = get_url(tab.endpoint, url=return_url) %}
+                    {% endif %}
+                    <a href="{{ tab_url }}" title="{{ tab.title }}">{{ tab.text }}</a>
+                </li>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+      {% endblock %}
+</ul>
+{% endblock %}
+
+{% block body %}  
+  {% block main %}{% endblock %}
+{% endblock %}
+
+{% block tail %}
+  {{ super() }}
+  {{ lib.form_js() }}
+{% endblock %}

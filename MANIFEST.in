@@ -1,0 +1,4 @@
+include *.rst
+recursive-include chiki/data *
+recursive-include chiki/templates *
+recursive-include chiki/static *

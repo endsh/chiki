@@ -1,0 +1,48 @@
+{% extends "articles/base.html" %}
+
+{% macro render_pages(pagination) %}
+    {% if pagination.has_pages %}
+        <ul class="pagination">
+        {% for page, link in pagination.iter_links() %}
+            {% if page == pagination.page %}
+            <li class="active"><a href="#">{{ page }} <span class="sr-only">(current)</span></a></li>
+            {% elif not link %}
+            <li class="disabled"><a href="#"><span>{{ page }}</span></a></li>
+            {% else %}
+            <li><a href="{{ link }}">{{ page }}</a></li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endmacro %}
+
+{% block main %}
+{% if arts %}
+<div>
+    <a class="btn btn-default" href="{{ url_for('.new') }}">创建文章</a>
+</div>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>标题</th>
+            <th class="text-center" style="width: 76px;">创建时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for art in arts.items %}
+        <tr>
+            <td><a href="{{ url_for('.detail', id=art.id) }}">{{ art.title }}</a></td>
+            <td>{{ art.created | time2best }}</td>
+            <td><a href="{{ url_for('.edit', id=art.id) }}">编辑</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>   
+</table>
+<nav class="text-center">{{ render_pages(arts) }}</nav>
+{% else %}
+<div class="gray-content-block">
+    <div class="oneline">暂时还没有文章</div>
+</div>
+{% endif %}
+{% endblock %}

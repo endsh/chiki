@@ -1,0 +1,46 @@
+.article .article-title {
+  font-size: 24px;
+  font-weight: 700;
+}
+.article .article-meta {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 20px;
+}
+.article .article-meta span + span {
+  margin-left: 10px;
+}
+.article .article-content {
+  font-size: 17px;
+  line-height: 1.6;
+  color: #444;
+}
+.article .article-content h1,
+.article .article-content h2,
+.article .article-content h3,
+.article .article-content h4,
+.article .article-content h5,
+.article .article-content h6,
+.article .article-content strong {
+  font-size: 18px;
+  margin-top: 20px;
+  color: #333;
+}
+.article .article-content p {
+  margin-bottom: 16px;
+}
+.article .article-content img {
+  max-width: 100%;
+}
+.article .article-content .article-img + .article-img {
+  margin-top: -10px;
+}
+.article .article-content .article-img-label {
+  margin-top: -10px;
+  font-size: 12px;
+}
+.article .article-footer {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 15px;
+}
