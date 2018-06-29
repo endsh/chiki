@@ -381,6 +381,7 @@ class WeChatUser(db.Document, ThirdUserMixin):
             'mp_openid',
             'mobile_openid',
             'qrcode_openid',
+            'mini_openid',
             '-modified',
             '-created',
         ],
