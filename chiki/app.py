@@ -296,6 +296,9 @@ def init_app(init=None, config=None, pyfile=None,
         if current_user.is_authenticated():
             user = current_user.id
 
+        if current_app.config.get('FAST_MODE') is True:
+            return json_success()
+
         TraceLog(
             user=user,
             key=request.form.get('key', ''),
