@@ -74,16 +74,16 @@ class Mini(Base):
             current_app.logger.error('jscode: ' + json.dumps(res))
             return json_error(msg='获取session_key失败')
         elif current_user.is_authenticated():
-            try:
-                if Item.bool('allow_invite', False, name='允许渠道'):
-                    um.funcs.on_wechat_login('mini', '')
-                current_user.wechat_user.update_info(
-                    form.get('userInfo'), action='mini')
-                current_user.wechat_user.save()
-                current_user.wechat_user.sync(current_user)
-                current_user.save()
-            except:
-                current_app.logger.error(traceback.format_exc())
+            # try:
+            #     if Item.bool('allow_invite', False, name='允许渠道'):
+            #         um.funcs.on_wechat_login('mini', '')
+            #     current_user.wechat_user.update_info(
+            #         form.get('userInfo'), action='mini')
+            #     current_user.wechat_user.save()
+            #     current_user.wechat_user.sync(current_user)
+            #     current_user.save()
+            # except:
+            #     current_app.logger.error(traceback.format_exc())
             return json_success(data=um.funcs.userinfo(current_user))
         return json_error(key='LOGIN_REQIURED')
 
