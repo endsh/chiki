@@ -111,11 +111,11 @@ def init_redis(app):
             password=conf.get('password', ''),
             db=conf.get('db', 0),
         )
-        app.config.setdefault('SESSION_TYPE', 'redis')
-        app.config.setdefault('SESSION_REDIS', app.redis)
-        app.config.setdefault('SESSION_USE_SIGNER', True)
-        app.config.setdefault('SESSION_KEY_PREFIX',
-                              conf.get('prefix', '') + '_sess_')
+        # app.config.setdefault('SESSION_TYPE', 'redis')
+        # app.config.setdefault('SESSION_REDIS', app.redis)
+        # app.config.setdefault('SESSION_USE_SIGNER', True)
+        # app.config.setdefault('SESSION_KEY_PREFIX',
+        #                       conf.get('prefix', '') + '_sess_')
 
 
 def init_error_handler(app):
