@@ -46,7 +46,10 @@ class BaseFile(object):
         return name
 
     def get_link(self, name, **kwargs):
-        return self.conf['link'] % name
+        link = self.conf['link'] % name
+        if self.conf.get('prefix'):
+            return self.conf.get('prefix') + link
+        return link
 
 
 class LocalFile(BaseFile):
