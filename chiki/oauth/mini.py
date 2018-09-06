@@ -74,6 +74,7 @@ class Mini(Base):
             current_app.logger.error('jscode: ' + json.dumps(res))
             return json_error(msg='获取session_key失败')
         elif current_user.is_authenticated():
+            um.funcs.on_wechat_login('mini', '')
             # try:
             #     if Item.bool('allow_invite', False, name='允许渠道'):
             #         um.funcs.on_wechat_login('mini', '')
