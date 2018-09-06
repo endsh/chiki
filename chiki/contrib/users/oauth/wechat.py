@@ -67,17 +67,17 @@ def on_invite(user, uid):
                 user.inviter3 = inviter.inviter2
                 user.save()
 
-                subs = list(um.models.User.objects(inviter=user.id).all())
-                for x in subs:
-                    x.inviter2 = user.inviter
-                    x.inviter3 = user.inviter2
-                    x.save()
+                # subs = list(um.models.User.objects(inviter=user.id).all())
+                # for x in subs:
+                #     x.inviter2 = user.inviter
+                #     x.inviter3 = user.inviter2
+                #     x.save()
 
-                subs2 = list(um.models.User.objects(inviter__in=subs).all())
-                for x in subs2:
-                    x.inviter2 = user
-                    x.inviter3 = user.inviter
-                    x.save()
+                # subs2 = list(um.models.User.objects(inviter__in=subs).all())
+                # for x in subs2:
+                #     x.inviter2 = user
+                #     x.inviter3 = user.inviter
+                #     x.save()
 
         if not inviter and uid < 100000:
             if not user.channel:
