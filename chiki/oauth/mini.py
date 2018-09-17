@@ -124,7 +124,7 @@ class Mini(Base):
         except:
             current_app.logger.error(traceback.format_exc())
 
-        if request.json.get('access') == 'true':
+        if request.args.get('access') == 'true':
             return json_success(data=um.funcs.userinfo(user), access=access)
 
         return json_success(data=um.funcs.userinfo(user))
