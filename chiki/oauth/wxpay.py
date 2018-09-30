@@ -106,6 +106,7 @@ class WXPay(Base):
         :param type: 订单分类，默认为normal
         :rtype: 微信接口返回结果
         """
+        # 123
         config = kwargs.pop('config', {})
         type = kwargs.pop('type', 'normal')
         kwargs.setdefault('appid', self.get_config('appid', config=config))
