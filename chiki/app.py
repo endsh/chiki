@@ -36,7 +36,7 @@ from chiki._flask import Flask
 __all__ = [
     "init_app", 'init_web', 'init_api', "init_admin", "start_error",
     'register_app', 'register_web', 'register_api', 'register_admin',
-    'apps',
+    'apps', 'register_init', 'inits',
 ]
 
 DEBUG_TB_PANELS = (
@@ -56,6 +56,7 @@ DEBUG_TB_PANELS = (
 
 media = MediaManager()
 apps = dict()
+inits = list()
 
 
 def init_db(db):
@@ -110,11 +111,11 @@ def init_redis(app):
             password=conf.get('password', ''),
             db=conf.get('db', 0),
         )
-        app.config.setdefault('SESSION_TYPE', 'redis')
-        app.config.setdefault('SESSION_REDIS', app.redis)
-        app.config.setdefault('SESSION_USE_SIGNER', True)
-        app.config.setdefault('SESSION_KEY_PREFIX',
-                              conf.get('prefix', '') + '_sess_')
+        # app.config.setdefault('SESSION_TYPE', 'redis')
+        # app.config.setdefault('SESSION_REDIS', app.redis)
+        # app.config.setdefault('SESSION_USE_SIGNER', True)
+        # app.config.setdefault('SESSION_KEY_PREFIX',
+        #                       conf.get('prefix', '') + '_sess_')
 
 
 def init_error_handler(app):
@@ -239,6 +240,10 @@ def init_app(init=None, config=None, pyfile=None,
             cm.init_app(app)
             Choices.init()
 
+    global inits
+    for i in inits:
+        i(app)
+
     if callable(init):
         init(app)
 
@@ -295,6 +300,9 @@ def init_app(init=None, config=None, pyfile=None,
         user = None
         if current_user.is_authenticated():
             user = current_user.id
+
+        if current_app.config.get('FAST_MODE') is True:
+            return json_success()
 
         TraceLog(
             user=user,
@@ -467,6 +475,12 @@ def register_app(name, config, init_app, manager=False):
             )
         return init
     return wrapper
+
+
+def register_init(init):
+    global inits
+    inits.append(init)
+    return init
 
 
 def register_admin(name='admin', config=None, manager=True):

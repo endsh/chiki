@@ -66,7 +66,6 @@ class Message(db.Document):
 
     meta = dict(
         indexes=[
-            'id',
             'default',
             'keyword',
         ]

@@ -106,17 +106,20 @@ class WXPay(Base):
         :param type: 订单分类，默认为normal
         :rtype: 微信接口返回结果
         """
+        # 123
+        config = kwargs.pop('config', {})
         type = kwargs.pop('type', 'normal')
-        kwargs.setdefault('appid', self.get_config('appid'))
-        kwargs.setdefault('mch_id', self.get_config('mchid'))
+        kwargs.setdefault('appid', self.get_config('appid', config=config))
+        kwargs.setdefault('mch_id', self.get_config('mchid', config=config))
         kwargs.setdefault('spbill_create_ip', get_ip())
-        kwargs.setdefault('notify_url', url_for(self.endpoint, type=type, _external=True))
+        kwargs.setdefault('notify_url', url_for(
+            self.endpoint, type=type, _external=True))
         kwargs.setdefault('trade_type', 'JSAPI')
         kwargs.setdefault('body', '微信支付')
         kwargs.setdefault('out_trade_no', 'wxtest')
         kwargs.setdefault('total_fee', 100)
         kwargs.setdefault('nonce_str', randstr(32))
-        kwargs.setdefault('sign', self.sign(**kwargs))
+        kwargs.setdefault('sign', self.sign(config=config, **kwargs))
 
         data = dicttoxml(kwargs, custom_root='xml', attr_type=False)
         try:

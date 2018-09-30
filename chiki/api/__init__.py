@@ -103,6 +103,7 @@ class Resource(_Resource):
         super(Resource, self).__init__()
         self.not_strips = tuple()
         self.req = reqparse.RequestParser()
+        self._args = None
         self.add_args()
 
     def add_args(self):
@@ -110,6 +111,12 @@ class Resource(_Resource):
 
     def get_args(self):
         return strip(self.req.parse_args(), *self.not_strips)
+
+    @property
+    def args(self):
+        if not self._args:
+            self._args = self.get_args()
+        return self._args
 
 
 api = Api()

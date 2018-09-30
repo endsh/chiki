@@ -381,6 +381,7 @@ class WeChatUser(db.Document, ThirdUserMixin):
             'mp_openid',
             'mobile_openid',
             'qrcode_openid',
+            'mini_openid',
             '-modified',
             '-created',
         ],
@@ -613,6 +614,9 @@ class UserLog(db.Document):
 
     @staticmethod
     def log(type, id, device, key='', spm=None, ip=None, ua=None):
+        if current_app.config.get('FAST_MODE') is True:
+            return
+
         spm = spm if spm else get_spm()
         ip = ip if ip else get_ip()
         ua = ua if ua else request.headers.get('User-Agent', '')

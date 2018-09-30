@@ -312,8 +312,8 @@ class ShareLog(db.Document):
 
     # 小程序解密专用
     def decrypt(self):
-        if not self.user or not self.user.wechat_user:
-            return
+        # if not self.user or not self.user.wechat_user:
+        #     return
 
         datas = json.loads(self.infos)
         for data in datas:
