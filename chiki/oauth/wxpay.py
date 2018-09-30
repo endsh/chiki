@@ -107,6 +107,9 @@ class WXPay(Base):
         :rtype: 微信接口返回结果
         """
         config = kwargs.pop('config', {})
+        self.config['appid'] = config.get('appid')
+        self.config['mchid'] = config.get('mchid')
+        self.config['key'] = config.get('key')
         type = kwargs.pop('type', 'normal')
         kwargs.setdefault('appid', self.get_config('appid', config=config))
         kwargs.setdefault('mch_id', self.get_config('mchid', config=config))
