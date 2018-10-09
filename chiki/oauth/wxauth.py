@@ -259,7 +259,8 @@ class WXAuth(Base):
         :param state: STATE
         """
         action = self.get_action(action)
-        if action == 'mobile' or is_json():
+        if action == 'mobile' or is_json() \
+			and (next is None or next.find('redirect=true') == -1):
             return abort(WXAUTH_REQUIRED)
 
         if config is None:
