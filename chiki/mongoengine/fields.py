@@ -241,14 +241,7 @@ class XFileField(BaseField):
 
 
 class ImageProxy(FileProxy):
-
-    @property
-    def link(self):
-        return self.instance.get_link(self.filename)
-
-    def get_link(self, width=0, height=0, ystart=0, yend=0):
-        return self.instance.get_link(
-            self.filename, width=width, height=height, ystart=ystart, yend=yend)
+    pass
 
 
 class XImageField(XFileField):
