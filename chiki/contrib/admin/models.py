@@ -123,6 +123,10 @@ class AdminChangeLog(db.Document):
     headers = db.StringField(verbose_name='头信息')
     created = db.DateTimeField(default=datetime.now, verbose_name='创建时间')
 
+    meta = dict(
+        indexes=['-created'],
+    )
+
     @staticmethod
     def log(user, model, before_data, after_data, type, **kwargs):
         ip = kwargs.get('ip', get_ip())
