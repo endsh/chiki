@@ -42,6 +42,7 @@ class WXPay(Base):
 
     def __init__(self, app=None, key=None, config=None, holder=None):
         self.wxpay_callback = None
+        self.config_callback = None
         super(WXPay, self).__init__(app, key, config, holder)
 
     def init_app(self, app):
@@ -66,9 +67,10 @@ class WXPay(Base):
         try:
             data = self.xml2dict(request.data)
             sign = data.pop('sign', None)
-            if sign != self.sign(**data):
+            config = self.load_config(type)
+            if sign != self.sign(config=config, **data):
                 tpl = 'wxpay sign callbck: \nsign: %s\ncurr_sign: %s\ndata:\n%s'
-                current_app.logger.error(tpl % (sign, self.sign(**data), request.data))
+                current_app.logger.error(tpl % (sign, self.sign(config=config, **data), request.data))
                 return 'sign error'
             if self.wxpay_callback:
                 if len(inspect.getargspec(self.wxpay_callback)[0]) == 1:
@@ -78,6 +80,11 @@ class WXPay(Base):
         except Exception, e:
             current_app.logger.error('wxpay callbck except: %s' % str(e))
         return res or ''
+
+    def load_config(self, appid=None):
+        if callable(self.config_callback):
+            return self.config_callback(appid)
+        return dict()
 
     def wxpay_handler(self, callback):
         """支付结果回调::
@@ -90,6 +97,18 @@ class WXPay(Base):
         :param type: 预支付传过来的类型
         """
         self.wxpay_callback = callback
+        return callback
+
+    def config_handler(self, callback):
+        """配置加载回调，动态加载配置::
+
+            @app.wxauth.error_handler
+            def wxauth_config(appid=None):
+                return current_app.config.get("WXAUTH")
+
+        :param appid: 根据appid加载配置
+        """
+        self.config_callback = callback
         return callback
 
     def xml2dict(self, xml):
@@ -106,8 +125,10 @@ class WXPay(Base):
         :param type: 订单分类，默认为normal
         :rtype: 微信接口返回结果
         """
-        # 123
         config = kwargs.pop('config', {})
+        self.config['appid'] = config.get('appid')
+        self.config['mchid'] = config.get('mchid')
+        self.config['key'] = config.get('key')
         type = kwargs.pop('type', 'normal')
         kwargs.setdefault('appid', self.get_config('appid', config=config))
         kwargs.setdefault('mch_id', self.get_config('mchid', config=config))

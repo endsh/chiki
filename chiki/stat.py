@@ -226,7 +226,7 @@ def init_stat(cls, key, subs, tpl, projects, modal, **kwargs):
             handle = item.get('handle')
             if callable(handle):
                 value = [handle(x) for x in value]
-            res.append(dict(name=item.get('name'), data=value))
+            res.append(dict(name=item.get('name'), data=value, key=key))
         return res
 
     def common_data(prefix, subtitle, axis, value_list, id=None):

@@ -64,8 +64,9 @@ class FileProxy(object):
     def link(self):
         return self.instance.get_link(self.filename, source=True)
 
-    def get_link(self, width=0, height=0, ystart=0, yend=0):
-        return self.instance.get_link(self.filename, source=True)
+    def get_link(self, width=0, height=0, ystart=0, yend=0, default=''):
+        link = self.instance.get_link(self.filename, source=True)
+        return link or default
 
     @property
     def content(self):
@@ -150,7 +151,7 @@ class XFileField(BaseField):
             config = current_app.config.get(self.config)
             if not config:
                 raise ValueError('Please set %s in config.' % self.config)
-            self._filename_generator = get_filename_generator(self.config, 
+            self._filename_generator = get_filename_generator(self.config,
                 config['type'] == 'local', generator=self._filename_generator)
         return self._filename_generator
 
@@ -240,14 +241,7 @@ class XFileField(BaseField):
 
 
 class ImageProxy(FileProxy):
-
-    @property
-    def link(self):
-        return self.instance.get_link(self.filename)
-
-    def get_link(self, width=0, height=0, ystart=0, yend=0):
-        return self.instance.get_link(
-            self.filename, width=width, height=height, ystart=ystart, yend=yend)
+    pass
 
 
 class XImageField(XFileField):
