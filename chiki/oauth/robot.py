@@ -5,8 +5,7 @@ import requests
 import werobot.client
 from chiki.contrib.common import Item, MiniTPLLog
 from flask import current_app
-from flask.ext.werobot import WeRoBot
-from werobot.messages import handle_for_type, WeChatMessage
+from werobot import WeRoBot
 from urllib import urlencode
 
 __all__ = [
@@ -76,25 +75,6 @@ def patch_monkey():
             return res
 
     werobot.client.Client = Client
-
-    @handle_for_type('event')
-    class EventMessage(WeChatMessage):
-
-        def __init__(self, message):
-            message.pop('type')
-            self.type = message.pop('Event').lower()
-            if self.type == 'click':
-                self.key = message.pop('EventKey')
-            elif self.type in ['subscribe', 'scan']:
-                try:
-                    self.key = int(message.pop('EventKey', '')[8:] or 0)
-                except:
-                    self.key = 0
-            elif self.type == 'location':
-                self.latitude = float(message.pop('Latitude'))
-                self.longitude = float(message.pop('Longitude'))
-                self.precision = float(message.pop('Precision'))
-            super(EventMessage, self).__init__(message)
 
     def scan(self, f):
         self.add_handler(f, type='scan')

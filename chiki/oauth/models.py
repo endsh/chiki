@@ -1,7 +1,7 @@
 #coding: utf-8
 from chiki.base import db
 from datetime import datetime
-from werobot.reply import Article, ArticlesReply, TextReply, MusicReply
+from werobot.replies import Article, ArticlesReply, TextReply, MusicReply
 from chiki.contrib.common import Enable
 
 

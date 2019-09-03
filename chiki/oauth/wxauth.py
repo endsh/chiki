@@ -88,8 +88,10 @@ class WXAuth(Base):
             'wxauth_js_endpoint', 'wxauth_[key]_js_login')
         mp = self.get_config(self.ACTION_MP)
         if mp:
-            self.client = werobot.client.Client(
-                mp.get('appid'), mp.get('secret'))
+            self.client = werobot.client.Client({
+                'APP_ID': mp.get('appid'),
+                'APP_SECRET': mp.get('secret')
+            })
             self.client.key = self.key
             if not hasattr(app, 'wxclient'):
                 app.wxclient = self.client

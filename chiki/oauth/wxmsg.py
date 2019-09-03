@@ -2,7 +2,7 @@
 import traceback
 from chiki.contrib.users import um
 from flask import current_app
-from werobot.reply import TransferCustomerServiceReply
+from werobot.replies import TransferCustomerServiceReply
 from .robot import WeRoBot
 from .admin import *
 from .models import *
