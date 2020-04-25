@@ -40,9 +40,9 @@ class Mini(Base):
             'mini_jscode_url', '/oauth/mini/[key]/jscode')
         self.endpoint = self.get_config(
             'mini_jscode_endpoint', 'mini_[key]_jscode')
-        self.client = werobot.client.Client(
-            self.get_config('appid'), self.get_config('secret'))
-        self.client.TYPE = 'mini'
+        # self.client = werobot.client.Client(
+        #     self.get_config('appid'), self.get_config('secret'))
+        # self.client.TYPE = 'mini'
 
         @app.route(self.url, endpoint=self.endpoint, methods=['POST'])
         def jscode():
