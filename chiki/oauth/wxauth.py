@@ -86,15 +86,15 @@ class WXAuth(Base):
             'wxauth_js_url', '/weixin-[key]-login.js')
         self.js_endpoint = self.get_config(
             'wxauth_js_endpoint', 'wxauth_[key]_js_login')
-        mp = self.get_config(self.ACTION_MP)
-        if mp:
-            self.client = werobot.client.Client({
-                'APP_ID': mp.get('appid'),
-                'APP_SECRET': mp.get('secret')
-            })
-            self.client.key = self.key
-            if not hasattr(app, 'wxclient'):
-                app.wxclient = self.client
+        # mp = self.get_config(self.ACTION_MP)
+        # if mp:
+        #     self.client = werobot.client.Client({
+        #         'APP_ID': mp.get('appid'),
+        #         'APP_SECRET': mp.get('secret')
+        #     })
+        #     self.client.key = self.key
+        #     if not hasattr(app, 'wxclient'):
+        #         app.wxclient = self.client
 
         @app.route(self.callback_url, endpoint=self.endpoint)
         def wxauth_callback():
