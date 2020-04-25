@@ -181,7 +181,7 @@ def clone4github():
     repos = {
         'chiki': {
             'repo': 'https://github.com/endsh/chiki.git',
-            'branch': 'old',
+            'branch': 'pt',
         },
         'simi': 'git@gitlab.com:xiaoku/simi.git',
         'flask-admin': "https://github.com/flask-admin/flask-admin.git",
