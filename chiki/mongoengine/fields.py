@@ -65,7 +65,7 @@ class FileProxy(object):
         return self.instance.get_link(self.filename, source=True)
 
     def get_link(self, width=0, height=0, ystart=0, yend=0, default=''):
-        link = self.instance.get_link(self.filename, source=True)
+        link = self.instance.get_link(self.filename, width=width, height=height, ystart=ystart, yend=yend)
         return link or default
 
     @property
