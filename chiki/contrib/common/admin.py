@@ -289,14 +289,14 @@ class APIView(ModelView):
         model.modified = datetime.now()
 
 
-class UserImageView(ModelView):
+# class UserImageView(ModelView):
 
-    column_default_sort = ('created', True)
-    column_filters = ('source', 'modified', 'created')
-    column_center_list = ('modified', 'created')
+#     column_default_sort = ('created', True)
+#     column_filters = ('source', 'modified', 'created')
+#     column_center_list = ('modified', 'created')
 
-    def on_model_change(self, form, model, created=False):
-        model.modified = datetime.now()
+#     def on_model_change(self, form, model, created=False):
+#         model.modified = datetime.now()
 
 
 @formatter
