@@ -283,7 +283,10 @@ class ModelView(with_metaclass(CoolAdminMeta, _ModelView)):
         else:
             order = self._get_default_order()
             if order:
-                if len(order) <= 1 or order[1] is not True and order[1] is not False:
+                if type(order) == list and len(order) == 1:
+                    order = order[0]
+
+                if len(order) <= 1 or order[1] not in [True, False]:
                     query = query.order_by(*order)
                 else:
                     query = query.order_by('%s%s' % ('-' if order[1] else '', order[0]))
