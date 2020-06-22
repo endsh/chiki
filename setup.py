@@ -55,7 +55,7 @@ setup(
         'Flask-Cache==0.13.1',
         'Flask-BabelEx==0.9.2',
         'Flask-Login==0.2.11',
-        'mongoengine==0.10.1',
+        'mongoengine>=0.10.1',
         'flask-mongoengine>=0.7.1',
         'Flask-WTF>=0.11',
         'Flask-Mail==0.9.1',
