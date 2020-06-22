@@ -10,7 +10,7 @@ from chiki.utils import get_ip, get_spm, get_channel, url2image, sign, today
 from chiki.iptools import parse_ip
 from datetime import datetime, timedelta
 from flask import current_app, request
-from flask.ext.login import current_user
+from flask_login import current_user
 from werkzeug.utils import cached_property
 
 __all__ = [

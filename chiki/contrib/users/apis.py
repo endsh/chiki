@@ -9,8 +9,8 @@ from chiki.utils import get_ip, get_spm, get_channel, is_empty
 from chiki.verify import get_verify_code, validate_code
 from datetime import datetime
 from flask import current_app, request
-from flask.ext.login import current_user, login_required
-from flask.ext.login import login_user, logout_user, encode_cookie
+from flask_login import current_user, login_required
+from flask_login import login_user, logout_user, encode_cookie
 from werkzeug.datastructures import FileStorage
 
 __all__ = [

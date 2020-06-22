@@ -1,5 +1,5 @@
 # coding: utf-8
-from flask.ext.admin.base import AdminViewMeta
+from flask_admin.base import AdminViewMeta
 from .common import _admin_registry
 
 

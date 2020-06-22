@@ -5,8 +5,8 @@ import inspect
 from chiki.contrib.common.models import StatLog
 from datetime import datetime, timedelta
 from flask import request
-from flask.ext.admin import expose
-from flask.ext.admin.base import _wrap_view
+from flask_admin import expose
+from flask_admin.base import _wrap_view
 from .utils import json_success
 
 

@@ -2,8 +2,8 @@
 import datetime
 from flask import Flask as _Flask, Blueprint, request, render_template
 from flask.json import JSONEncoder as _JSONEncoder
-from flask.ext.login import login_required, current_user
-from flask.ext.restful.representations.json import settings
+from flask_login import login_required, current_user
+from flask_restful.representations.json import settings
 from werkzeug.datastructures import ImmutableDict
 from bson import ObjectId
 from .utils import json_success, is_ajax

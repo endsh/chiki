@@ -1,6 +1,6 @@
 # coding: utf-8
 from __future__ import unicode_literals
-from flask.ext.restful import abort as _abort
+from flask_restful import abort as _abort
 
 _code = 0
 def code(n=None):

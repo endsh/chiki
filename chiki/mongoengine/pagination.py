@@ -2,7 +2,7 @@
 from ..utils import is_ajax, json_success
 from ..api import success
 from flask import request, url_for, render_template
-from flask.ext.mongoengine.pagination import Pagination as _Pagination
+from flask_mongoengine.pagination import Pagination as _Pagination
 
 
 class Pagination(_Pagination):

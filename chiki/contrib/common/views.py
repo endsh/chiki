@@ -4,7 +4,7 @@ import json
 import zipfile
 from flask import Blueprint, request, current_app
 from flask import abort, redirect, Response
-from flask.ext.login import current_user
+from flask_login import current_user
 from cStringIO import StringIO
 from shutil import copyfileobj
 from chiki.utils import json_success

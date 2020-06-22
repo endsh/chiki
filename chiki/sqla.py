@@ -1,6 +1,6 @@
 # coding: utf-8
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 sql = SQLAlchemy()
 migrate = Migrate()

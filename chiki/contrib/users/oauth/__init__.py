@@ -5,7 +5,7 @@ from chiki.api.const import *
 from chiki.contrib.common import Item
 from chiki.utils import is_json
 from flask import current_app, request, redirect
-from flask.ext.login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user
 from urllib import urlencode
 from . import wechat
 from .wechat import *

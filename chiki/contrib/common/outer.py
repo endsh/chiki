@@ -5,7 +5,7 @@ from chiki.contrib.users import um
 from wtforms import PasswordField
 from datetime import datetime, timedelta
 from flask import Blueprint, render_template, redirect, url_for
-from flask.ext.login import current_user, login_user, login_required
+from flask_login import current_user, login_user, login_required
 from .admin import ChannelView
 from .models import Channel
 

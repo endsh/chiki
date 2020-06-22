@@ -2,8 +2,8 @@
 import os
 import json
 from flask import current_app
-from flask.ext.admin import Admin as _Admin, AdminIndexView
-from flask.ext.admin.menu import MenuView, MenuCategory, MenuLink
+from flask_admin import Admin as _Admin, AdminIndexView
+from flask_admin.menu import MenuView, MenuCategory, MenuLink
 from .formatters import *
 from .static import *
 from .views import *

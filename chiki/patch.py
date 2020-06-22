@@ -5,7 +5,7 @@ import random
 import hashlib
 from flask import Flask, url_for, current_app, request
 from flask.app import setupmethod
-from flask.ext.login import current_user
+from flask_login import current_user
 from functools import wraps
 
 case = string.lowercase + string.digits

@@ -1,6 +1,6 @@
 # coding: utf-8
-from flask.ext.admin.model.filters import convert as _convert
-from flask.ext.admin.contrib.mongoengine.filters import (
+from flask_admin.model.filters import convert as _convert
+from flask_admin.contrib.mongoengine.filters import (
     BaseMongoEngineFilter, FilterEqual, FilterNotEqual, FilterConverter,
 )
 from bson.objectid import ObjectId

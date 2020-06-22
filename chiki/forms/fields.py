@@ -1,8 +1,8 @@
 # coding: utf-8
 from datetime import datetime
 from flask import current_app
-from flask.ext.admin.model.fields import InlineFieldList
-from flask.ext.mongoengine.wtf.fields import ModelSelectMultipleField as _ModelSelectMultipleField
+from flask_admin.model.fields import InlineFieldList
+from flask_mongoengine.wtf.fields import ModelSelectMultipleField as _ModelSelectMultipleField
 from wtforms.fields import Field, StringField, SelectField, SelectMultipleField
 from wtforms.fields import FileField as _FileField, DateTimeField, TextAreaField
 from wtforms.fields import Label as _Label

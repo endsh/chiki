@@ -16,7 +16,7 @@ from urllib import urlencode
 from datetime import datetime, date
 from StringIO import StringIO
 from flask import jsonify, current_app, request, redirect
-from flask.ext.login import current_user
+from flask_login import current_user
 
 import urllib3
 urllib3.disable_warnings()

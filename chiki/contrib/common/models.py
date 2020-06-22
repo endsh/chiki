@@ -11,7 +11,7 @@ from chiki.base import db, cache
 from chiki.utils import today, retry
 from datetime import datetime, timedelta
 from flask import current_app
-from flask.ext.login import current_user
+from flask_login import current_user
 
 
 class Enable(object):

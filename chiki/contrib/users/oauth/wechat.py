@@ -9,7 +9,7 @@ from chiki.contrib.common import Item, Channel
 from chiki.web import error
 from chiki.utils import get_url_arg, is_json
 from flask import current_app, request, redirect
-from flask.ext.login import login_user, current_user, login_required
+from flask_login import login_user, current_user, login_required
 
 __all__ = [
     'init_wxauth', 'get_wechat_user', 'create_wechat_user',

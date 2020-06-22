@@ -17,8 +17,8 @@ from chiki.utils import json_success, json_error
 from datetime import datetime
 from wtforms.fields import TextAreaField, SelectField
 from flask import current_app, url_for, request
-from flask.ext.admin import expose
-from flask.ext.admin.form import BaseForm
+from flask_admin import expose
+from flask_admin.form import BaseForm
 from .models import View, Item
 from ...jinja import markupper
 

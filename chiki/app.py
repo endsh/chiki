@@ -6,11 +6,11 @@ import logging
 from StringIO import StringIO
 from flask import Blueprint, current_app, Response, render_template
 from flask import request, redirect, url_for, send_file
-from flask.ext.babelex import Babel
-from flask.ext.login import login_required, current_user
-from flask.ext.mail import Mail
-from flask.ext.debugtoolbar import DebugToolbarExtension
-from flask.ext.session import Session
+from flask_babelex import Babel
+from flask_login import login_required, current_user
+from flask_mail import Mail
+from flask_debugtoolbar import DebugToolbarExtension
+from flask_session import Session
 from chiki.admin.common import _document_registry
 from chiki.base import db, cache
 from chiki.cool import cm

@@ -18,7 +18,7 @@ from datetime import datetime
 from flask import current_app, request, redirect, url_for
 from flask import make_response, render_template_string
 from urllib import quote, urlencode
-from flask.ext.login import current_user, login_user
+from flask_login import current_user, login_user
 
 __all__ = [
     'Mini',

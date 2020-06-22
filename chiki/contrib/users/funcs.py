@@ -2,7 +2,7 @@
 import re
 import urllib
 from flask import current_app, url_for, render_template_string
-from flask.ext.mail import Message
+from flask_mail import Message
 from chiki.sms import send_rong_sms, send_ihuyi_sms, send_jisu_sms
 
 

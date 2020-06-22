@@ -6,7 +6,7 @@ import inspect
 from datetime import datetime
 from cookiecutter.main import cookiecutter
 from flask import Flask
-from flask.ext.script import Manager, Command, Shell
+from flask_script import Manager, Command, Shell
 from chiki.base import db
 from chiki.app import apps
 from chiki.contrib.users import um
