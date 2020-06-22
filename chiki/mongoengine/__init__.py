@@ -1,5 +1,5 @@
 # coding: utf-8
-from flask.ext import mongoengine
+import flask_mongoengine
 from . import fields, pagination
 
 
@@ -24,7 +24,7 @@ class Chocies(object):
         return self.DICT.get(key)
 
 
-class MongoEngine(mongoengine.MongoEngine):
+class MongoEngine(flask_mongoengine.MongoEngine):
 
     def __init__(self, app=None):
         super(MongoEngine, self).__init__(app)
@@ -37,19 +37,19 @@ class MongoEngine(mongoengine.MongoEngine):
         return Chocies(**kwargs)
 
 
-class BaseQuerySet(mongoengine.BaseQuerySet):
+class BaseQuerySet(flask_mongoengine.BaseQuerySet):
 
     def paginate(self, **kwargs):
         return pagination.Pagination(self, **kwargs)
 
 
-class Document(mongoengine.Document):
+class Document(flask_mongoengine.Document):
 
     meta = {'abstract': True,
             'queryset_class': BaseQuerySet}
 
 
-class DynamicDocument(mongoengine.DynamicDocument):
+class DynamicDocument(flask_mongoengine.DynamicDocument):
 
     meta = {'abstract': True,
             'queryset_class': BaseQuerySet}
