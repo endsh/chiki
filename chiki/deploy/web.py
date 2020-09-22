@@ -26,7 +26,7 @@ def build():
         ' python-virtualenv python-dev subversion curl'
         ' libxml2-dev libxslt1-dev libfreetype6-dev'
         ' libjpeg62 libpng3 libjpeg-dev libpng12-dev'
-        ' libffi-dev libssl-dev expect sshpass'
+        ' libffi-dev libssl-dev expect sshpass '
     )
     run('easy_install pip supervisor')
     run('pip install virtualenvwrapper')
@@ -103,7 +103,7 @@ def pip(file='../requirements/prod.txt'):
     put(file, os.path.join(env.path, 'requirements.txt'))
     with cd(env.path):
         # xrun('pip install -r setuptools==35.0.2')
-        xrun('pip install -r requirements.txt --trusted-host mirrors.aliyun.com')
+        xrun('pip install -r requirements.txt')
 
 
 @roles('repo')
