@@ -70,7 +70,7 @@ setup(
         'blinker==1.3',
         'cookiecutter==1.1.0',
         'redis',
-        'WeRoBot==1.9.0',
+        'WeRoBot==1.4.0',
         'Flask-WeRoBot==0.1.2',
         'xmltodict==0.9.2',
         'dicttoxml==1.6.6',

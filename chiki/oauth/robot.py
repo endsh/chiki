@@ -76,10 +76,6 @@ def patch_monkey():
 
     werobot.client.Client = Client
 
-    def scan(self, f):
-        self.add_handler(f, type='scan')
-        return f
-
     def mini(self, f):
         if 'miniprogrampage' not in self._handlers:
             self._handlers['miniprogrampage'] = []
@@ -90,12 +86,6 @@ def patch_monkey():
         self.add_handler(f, type='user_enter_tempsession')
         return f
 
-    WeRoBot.message_types = [
-        'subscribe', 'unsubscribe', 'click', 'view',
-        'text', 'image', 'link', 'location', 'voice', 'scan',
-        'user_enter_tempsession',
-    ]
-    WeRoBot.scan = scan
     WeRoBot.mini = mini
     WeRoBot.user_enter_tempsession = user_enter_tempsession
 

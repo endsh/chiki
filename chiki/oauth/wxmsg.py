@@ -23,7 +23,6 @@ class WXMsg(object):
 
     def init_app(self, app):
         self.init_robot(robot)
-        robot.init_app(app)
         robot.logger = app.logger
 
     def init_robot(self, robot):
