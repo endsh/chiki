@@ -249,6 +249,22 @@ def chiki():
 
 
 @task
+def update_chiki():
+    repos = {
+        'chiki': {
+            'repo': 'https://github.com/endsh/chiki.git',
+            'branch': 'old',
+        },
+    }
+    for name, repo in repos.iteritems():
+        folder = os.path.join(env.src, name)
+        if type(repo) == dict:
+            clone2setup(name, folder, repo['repo'], repo['branch'])
+        else:
+            clone2setup(name, folder, repo)
+
+
+@task
 def update(copy=False, media='media/web/dist data'):
     copy = True if copy in ['True', 'true', True] else False
     clone2setup(env.project, os.path.join(env.src, env.project), copy=copy)
