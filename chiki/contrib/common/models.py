@@ -1209,41 +1209,44 @@ class Model(db.Document):
     def __unicode__(self):
         return self.name
 
-    @property
-    def can_create(self):
-        if current_user.is_authenticated():
-            group = current_user.group
-            name = self.__class__.__name__
-            if current_user.root is True \
-                    or getattr(self, 'can_use', False) is True \
-                    or group and name in group.power_list \
-                    and name in group.can_create_list:
-                return self._can_create
-        return False
 
-    @property
-    def can_edit(self):
-        if current_user.is_authenticated():
-            group = current_user.group
-            name = self.__class__.__name__
-            if current_user.root is True \
-                    or getattr(self, 'can_use', False) is True \
-                    or group and name in group.power_list \
-                    and name in group.can_edit_list:
-                return self._can_edit
-        return False
+@property
+def can_create(self):
+    if current_user.is_authenticated():
+        group = current_user.group
+        name = self.__class__.__name__
+        if current_user.root is True \
+                or getattr(self, 'can_use', False) is True \
+                or group and name in group.power_list \
+                and name in group.can_create_list:
+            return self._can_create
+    return False
 
-    @property
-    def can_delete(self):
-        if current_user.is_authenticated():
-            group = current_user.group
-            name = self.__class__.__name__
-            if current_user.root is True \
-                    or getattr(self, 'can_use', False) is True \
-                    or group and name in group.power_list \
-                    and name in group.can_delete_list:
-                return self._can_delete
-        return False
+
+@property
+def can_edit(self):
+    if current_user.is_authenticated():
+        group = current_user.group
+        name = self.__class__.__name__
+        if current_user.root is True \
+                or getattr(self, 'can_use', False) is True \
+                or group and name in group.power_list \
+                and name in group.can_edit_list:
+            return self._can_edit
+    return False
+
+
+@property
+def can_delete(self):
+    if current_user.is_authenticated():
+        group = current_user.group
+        name = self.__class__.__name__
+        if current_user.root is True \
+                or getattr(self, 'can_use', False) is True \
+                or group and name in group.power_list \
+                and name in group.can_delete_list:
+            return self._can_delete
+    return False
 
 
 class View(db.Document):
