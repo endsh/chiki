@@ -65,11 +65,10 @@ class CoolManager(object):
     def init_admin(self, admin):
         uses = []
         for name, model in self.models.iteritems():
-            if not getattr(model, 'NOT_ADD_ADMIN', False):
-                view = model._admin_view_cls(model)
-                model._admin_view_data.setup(admin, view)
-                admin.add_view(view)
-                uses.append(model._admin_view_cls)
+            view = model._admin_view_cls(model)
+            model._admin_view_data.setup(admin, view)
+            admin.add_view(view)
+            uses.append(model._admin_view_cls)
 
         for name, view in self.admin.iteritems():
             if view not in uses:
