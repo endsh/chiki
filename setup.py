@@ -60,7 +60,7 @@ setup(
         'Flask-WTF>=0.11',
         'Flask-Mail==0.9.1',
         'Flask-RESTful==0.3.3',
-        'Jinja2==2.7.3',
+        'Jinja2==2.11.3',
         'WTForms==2.0.2',
         'Flask-Script==2.0.5',
         'wheezy.captcha==0.1.44',
