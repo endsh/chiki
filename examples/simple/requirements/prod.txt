@@ -12,7 +12,7 @@ Jinja2==2.7.3
 Mako==1.0.3
 MarkupSafe==0.23
 Pillow==2.7.0
-PyYAML==3.11
+PyYAML==5.4
 SQLAlchemy==1.0.11
 WTForms==2.0.2
 WeRoBot==0.6.1
