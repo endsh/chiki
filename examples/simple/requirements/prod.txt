@@ -16,7 +16,7 @@ PyYAML==3.11
 SQLAlchemy==1.0.11
 WTForms==2.0.2
 WeRoBot==0.6.1
-Werkzeug==0.11.3
+Werkzeug==0.15.3
 alembic==0.8.4
 aniso8601==1.1.0
 argh==0.26.1
