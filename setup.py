@@ -78,7 +78,7 @@ setup(
         'Flask-DebugToolbar==0.10.0',
         'Flask-DebugToolbar-LineProfilerPanel==1.0.2',
         'Flask-Session==0.2.3',
-        'rsa==3.4.2',
+        'rsa==4.7',
         'funcsigs==1.0.2'
     ],
 )
