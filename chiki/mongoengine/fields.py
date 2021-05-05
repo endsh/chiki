@@ -64,8 +64,8 @@ class FileProxy(object):
     def link(self):
         return self.instance.get_link(self.filename, source=True)
 
-    def get_link(self, width=0, height=0, ystart=0, yend=0, default=''):
-        link = self.instance.get_link(self.filename, source=True)
+    def get_link(self, width=0, height=0, ystart=0, yend=0, format=None, default=''):
+        link = self.instance.get_link(self.filename, width=width, height=height, ystart=ystart, yend=yend, format=format)
         return link or default
 
     @property
@@ -83,7 +83,8 @@ class FileProxy(object):
         if isinstance(value, FileStorage):
             self._process(stream=value.stream, format=value.filename.split('.')[-1])
         elif isinstance(value, dict):
-            self._process(stream=value.get('stream'), format=value.get('format'))
+            self._process(stream=value.get('stream'), format=value.get('format'),
+                          filename=value.get('filename'))
         elif isinstance(value, (tuple, list)) and len(value) == 2:
             self._process(stream=value[0], format=value[1])
         elif isinstance(value, (str, unicode)):
@@ -101,7 +102,9 @@ class FileProxy(object):
         if stream is not None:
             if not is_empty(stream):
                 self.remove()
-                if self.instance.rename or not self.filename:
+                if not self.filename and filename:
+                    self.filename = self.instance.put(stream, filename=filename)
+                elif self.instance.rename or not self.filename:
                     self.filename = self.instance.put(stream, format=format)
                 else:
                     self.instance.put(stream, filename=self.filename)
@@ -259,7 +262,7 @@ class Base64ImageProxy(FileProxy):
     def base64(self):
         return ('base://' + self.filename) if self.filename else ''
 
-    def get_link(self, width=0, height=0, ystart=0, yend=0):
+    def get_link(self, width=0, height=0, ystart=0, yend=0, format=None):
         return self.filename
 
 

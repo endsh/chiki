@@ -83,14 +83,15 @@ class OSSFile(BaseFile):
             conf['secret_access_key'],
         )
 
-    def get_link(self, name, width=0, height=0, ystart=0, yend=0, source=False):
+    def get_link(self, name, width=0, height=0, ystart=0, yend=0, source=False, format=None):
         link = self.conf['link'] % name
         if source:
             return link
 
-        format = name.split('.')[-1]
-        if format not in ['jpg', 'jpeg', 'png', 'gif', 'bmp']:
-            format = 'jpg'
+        if not format:
+            format = name.split('.')[-1]
+            if format not in ['jpg', 'jpeg', 'png', 'gif', 'bmp']:
+                format = 'jpg'
 
         attrs = []
         if width != 0:
