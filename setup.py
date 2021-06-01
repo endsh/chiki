@@ -50,7 +50,7 @@ setup(
     zip_safe=False,
     platforms='any',
     install_requires=[
-        'urllib3==1.22',
+        'urllib3==1.26.5',
         'Flask==0.10.1',
         'Flask-Cache==0.13.1',
         'Flask-BabelEx==0.9.2',
