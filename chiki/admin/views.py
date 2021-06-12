@@ -406,6 +406,9 @@ class ModelView(with_metaclass(CoolAdminMeta, _ModelView)):
                       'error')
 
     def on_field_change(self, model, name, value):
+        if self.get_field_type(name) == 'IntField':
+            value = int(value)
+
         model[name] = value
         if hasattr(model, 'modified'):
             model['modified'] = datetime.now()
