@@ -2,8 +2,7 @@
 import datetime
 from flask import Flask as _Flask, Blueprint, request, render_template
 from flask.json import JSONEncoder as _JSONEncoder
-from flask.ext.login import login_required, current_user
-from flask.ext.restful.representations.json import settings
+from flask_login import login_required, current_user
 from werkzeug.datastructures import ImmutableDict
 from bson import ObjectId
 from .utils import json_success, is_ajax
@@ -26,7 +25,7 @@ class JSONEncoder(_JSONEncoder):
         return _JSONEncoder.default(self, obj)
 
 
-settings['cls'] = JSONEncoder
+# settings['cls'] = JSONEncoder
 
 
 class Flask(_Flask):
@@ -55,7 +54,7 @@ def bp_list(self, model, url, tpl, endpoint=None, login=False,
         page = max(1, request.args.get('page', 1, int))
         per = max(1, min(100, request.args.get('per_page', per_page, int)))
         query = dict()
-        for key, value in kwargs.iteritems():
+        for key, value in kwargs.items():
             if callable(value):
                 query[key] = value()
             elif key == 'user' and value is True:

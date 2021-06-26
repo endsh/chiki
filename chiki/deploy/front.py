@@ -45,7 +45,7 @@ def media(source='../media/web/dist', target=None, app='web', restart=True):
 
     execute(dist_media)
 
-    for stage, e in env.envs.iteritems():
+    for stage, e in env.envs.items():
         if stage not in env.exclude_envs:
             prefix = 'SITE_STATIC_PREFIX'
             file = r'%s/etc/%s.py' % (stage, app)

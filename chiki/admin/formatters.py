@@ -8,11 +8,11 @@ from ..mongoengine.fields import ImageProxy, Base64ImageProxy
 
 
 def quote(*args):
-    return tuple(quoteattr(unicode(x)) for x in args)
+    return tuple(quoteattr(str(x)) for x in args)
 
 
 def escape(*args):
-    return tuple(_escape(unicode(x)) for x in args)
+    return tuple(_escape(str(x)) for x in args)
 
 
 def get_span(text, short, cls=''):
@@ -33,13 +33,13 @@ def get_link(text, link, max_len=20, blank=True, html=False, **kwargs):
     if not blank:
         tpl = u'<a %shref=%s title=%s>%s</a>'
     if text or type(text) == int:
-        extras = ' '.join('%s=%s' % (x, quoteattr(unicode(y))) for x, y in attrs.iteritems())
+        extras = ' '.join('%s=%s' % (x, quoteattr(str(y))) for x, y in attrs.items())
         extras = extras + ' ' if extras else ''
         if html:
             short = text
             text = ''
         else:
-            short = unicode(text)[:max_len] + '...' if len(unicode(text)) > max_len else unicode(text)
+            short = str(text)[:max_len] + '...' if len(str(text)) > max_len else str(text)
         return tpl % ((extras,) + quote(link, text) + (escape(short) if not html else (short,)))
     return ''
 
@@ -74,7 +74,7 @@ def formatter_model(func):
 def formatter_len(max_len=20, cls=''):
     @formatter
     def wrapper(data):
-        data = unicode(data)
+        data = str(data)
         if len(data) > max_len + 1:
             return get_span(data, data[:max_len] + '...', cls=cls)
         return data
@@ -90,7 +90,7 @@ def formatter_text(func, max_len=20, cls=''):
             short, text = res
         else:
             short, text, xcls = res
-        short, text = unicode(short), unicode(text)
+        short, text = str(short), str(text)
         short = short[:max_len] + '...' if len(short) > max_len + 1 else short
         return get_span(text, short, cls=xcls or cls)
     return span
@@ -118,7 +118,7 @@ def formatter_popover(func, max_len=20, show_title=True):
 def formatter_icon(func=None, height=40, **kwargs):
     if 'class_' in kwargs:
         kwargs['class'] = kwargs.pop('class_')
-    exts = ' '.join(['%s=%s' % ((k,) + quote(v)) for k, v in kwargs.iteritems()]) + ' '
+    exts = ' '.join(['%s=%s' % ((k,) + quote(v)) for k, v in kwargs.items()]) + ' '
     tpl = u'''
         <a href=%%s target="_blank" style="text-decoration:none">
             <img %ssrc=%%s style="max-height: %dpx; margin: -6px 0">
@@ -300,7 +300,7 @@ def filter_sort(column_filters, column_list):
     for x in column_filters:
         if x in column_list:
             res[x] = c.get(x, 10000)
-    e = sorted(res.iteritems(), key=lambda x: x[1])
+    e = sorted(res.items(), key=lambda x: x[1])
     new_list = list()
     if 'id' not in column_filters:
         new_list.append('id')

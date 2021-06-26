@@ -6,7 +6,7 @@ import inspect
 from datetime import datetime
 from cookiecutter.main import cookiecutter
 from flask import Flask
-from flask.ext.script import Manager, Command, Shell
+from flask_script import Manager, Command, Shell
 from chiki.base import db
 from chiki.app import apps
 from chiki.contrib.users import um
@@ -51,7 +51,7 @@ def create_item():
         else:
             res[item] = item
 
-    items = [x for _, x in sorted(res.iteritems(), key=lambda m: m[0])]
+    items = [x for _, x in sorted(res.items(), key=lambda m: m[0])]
 
     path = os.path.join(name, 'services/init.py')
     content = """# coding: utf-8
@@ -68,7 +68,7 @@ def init():
 
 
 def clear_db():
-    for name, doc in documents.iteritems():
+    for name, doc in documents.items():
         if not doc._meta['abstract'] and doc._is_document:
             doc.objects.delete()
 
@@ -127,10 +127,10 @@ def main():
     if 'manager' in apps:
         manager = Manager(apps['manager']['run'])
 
-        for cmd, app in apps.iteritems():
+        for cmd, app in apps.items():
             manager.add_command(cmd, Command(create_command(app)))
 
-        for cmd, command in commands.iteritems():
+        for cmd, command in commands.items():
             manager.add_command(cmd, Command(command))
 
         def make_shell_context():

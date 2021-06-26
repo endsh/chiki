@@ -1,8 +1,8 @@
 # coding: utf-8
-from flask.ext.admin import form
-from flask.ext.admin.contrib.mongoengine.form import CustomModelConverter
-from flask.ext.admin.model.fields import AjaxSelectField, AjaxSelectMultipleField
-from flask.ext.mongoengine.wtf import orm, fields as mongo_fields
+from flask_admin import form
+from flask_admin.contrib.mongoengine.form import CustomModelConverter
+from flask_admin.model.fields import AjaxSelectField, AjaxSelectMultipleField
+from flask_mongoengine.wtf import orm, fields as mongo_fields
 from mongoengine import ReferenceField
 from ..forms.fields import FileField, ImageField, Base64ImageField
 from ..forms.fields import AreaField, ListField, ModelSelectMultipleField

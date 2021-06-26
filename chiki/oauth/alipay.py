@@ -6,7 +6,7 @@ import traceback
 import requests
 from datetime import datetime
 from flask import url_for, request, current_app
-from urllib import quote
+from urllib.parse import quote
 
 __all__ = [
     'Alipay', 'init_alipay',
@@ -48,7 +48,7 @@ class Alipay(object):
 
     def alipay_callback(self):
         sign = request.form.get('sign')
-        args = dict([(x, y[0]) for x, y in dict(request.form).iteritems() if x not in ['sign', 'sign_type']])
+        args = dict([(x, y[0]) for x, y in dict(request.form).items() if x not in ['sign', 'sign_type']])
         if self.verify(sign, **args):
             if self.callback:
                 self.callback()
@@ -112,12 +112,12 @@ class Alipay(object):
         return self.get('alipay.trade.fastpay.refund.query', **kwargs)['alipay_trade_fastpay_refund_query_response']
 
     def sign(self, **kwargs):
-        keys = sorted(filter(lambda x: x[1], kwargs.iteritems()), key=lambda x: x[0])
+        keys = sorted(filter(lambda x: x[1], kwargs.items()), key=lambda x: x[0])
         text = '&'.join(['%s=%s' % x for x in keys])
         return base64.b64encode(rsa.sign(text, self.app_private_key, 'SHA-1'))
 
     def verify(self, sign, **kwargs):
-        keys = sorted(filter(lambda x: x[1], kwargs.iteritems()), key=lambda x: x[0])
+        keys = sorted(filter(lambda x: x[1], kwargs.items()), key=lambda x: x[0])
         text = '&'.join(['%s=%s' % x for x in keys])
         try:
             rsa.verify(text, base64.b64decode(sign), self.alipay_public_key)
@@ -127,7 +127,7 @@ class Alipay(object):
             return False
 
     def encode(self, data):
-        return '&'.join(['%s=%s' % (x[0], quote(x[1])) for x in data.iteritems()])
+        return '&'.join(['%s=%s' % (x[0], quote(x[1])) for x in data.items()])
 
 
 def init_alipay(app):

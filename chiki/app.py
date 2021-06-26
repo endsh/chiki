@@ -1,18 +1,18 @@
-# coding: utf-8
+ # coding: utf-8
 import os
 import redis
 import traceback
 import logging
-from StringIO import StringIO
+from io import StringIO
 from flask import Blueprint, current_app, Response, render_template
 from flask import request, redirect, url_for, send_file
-from flask.ext.babelex import Babel
-from flask.ext.login import login_required, current_user
-from flask.ext.mail import Mail
-from flask.ext.debugtoolbar import DebugToolbarExtension
-from flask.ext.session import Session
+from flask_babelex import Babel
+from flask_login import login_required, current_user
+from flask_mail import Mail
+from flask_debugtoolbar import DebugToolbarExtension
+from flask_session import Session
 from chiki.admin.common import _document_registry
-from chiki.base import db, cache
+from chiki.base import db
 from chiki.cool import cm
 from chiki.contrib.common import Item, Page, Choices, Menu, TraceLog, ImageItem
 from chiki.contrib.common import Complaint
@@ -60,7 +60,7 @@ inits = list()
 
 
 def init_db(db):
-    for name, doc in _document_registry.iteritems():
+    for name, doc in _document_registry.items():
         if not doc._meta['abstract'] and doc._is_document:
             setattr(db, name, doc)
 
@@ -219,9 +219,9 @@ def init_app(init=None, config=None, pyfile=None,
     init_babel(app)
     init_redis(app)
 
-    if not app.config.get('CACHE_TYPE'):
-        app.config['CACHE_TYPE'] = 'simple'
-    cache.init_app(app)
+    # if not app.config.get('CACHE_TYPE'):
+    #     app.config['CACHE_TYPE'] = 'simple'
+    # cache.init_app(app)
 
     if app.config.get('SESSION_TYPE'):
         Session(app)
@@ -317,7 +317,7 @@ def init_app(init=None, config=None, pyfile=None,
     @login_required
     def complaint_choose():
         complaint = sorted(
-            Complaint.TYPE.DICT.iteritems(), key=lambda x: x[1], reverse=True)
+            Complaint.TYPE.DICT.items(), key=lambda x: x[1], reverse=True)
         return render_template('complaint/choose.html', type=complaint)
 
     @app.route('/complaint/desc/')

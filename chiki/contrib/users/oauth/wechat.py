@@ -9,7 +9,7 @@ from chiki.contrib.common import Item, Channel
 from chiki.web import error
 from chiki.utils import get_url_arg, is_json
 from flask import current_app, request, redirect
-from flask.ext.login import login_user, current_user, login_required
+from flask_login import login_user, current_user, login_required
 
 __all__ = [
     'init_wxauth', 'get_wechat_user', 'create_wechat_user',
@@ -117,7 +117,7 @@ def wxauth_required(key=None):
                         if not getattr(wxuser, field):
                             return auth.auth(auth.ACTION_MP, request.url)
                 elif key == 'all':
-                    for k, auth in current_app.wxauth.puppets.iteritems():
+                    for k, auth in current_app.wxauth.puppets.items():
                         field = 'mp_openid_%s' % k
                         if not getattr(wxuser, field):
                             return auth.auth(auth.ACTION_MP, request.url)
@@ -219,7 +219,7 @@ def init_wxauth(app):
         ],
     }
     attrs = dict(meta=meta, __doc__='微信模型')
-    for key, auth in wxauth.puppets.iteritems():
+    for key, auth in wxauth.puppets.items():
         field = 'mp_openid_%s' % key
         attrs[field] = db.StringField(verbose_name='%s公众号' % key)
         meta['indexes'].append(field)

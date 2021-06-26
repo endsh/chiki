@@ -34,7 +34,7 @@ def execute(task, *args, **kwargs):
 
     if task not in ['stage', 's']:
         if env.stage == 'all':
-            for stage, e in env.envs.iteritems():
+            for stage, e in env.envs.items():
                 if stage not in env.exclude_envs:
                     with settings(stage=stage, **e):
                         _execute(task, *args, **kwargs)

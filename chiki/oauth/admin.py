@@ -1,7 +1,7 @@
 #coding: utf-8
 from chiki.admin import ModelView
 from chiki.admin.formatters import formatter_len
-from flask.ext.admin import expose
+from flask_admin import expose
 from .models import WXMenu, Message
 from ..utils import json_error, json_success
 from flask import current_app, request

@@ -145,7 +145,7 @@ class AdminChangeLog(db.Document):
         after = dict(id=model.id)
         if kwargs.get('form'):
             try:
-                for k, v in kwargs.get('form').data.iteritems():
+                for k, v in kwargs.get('form').data.items():
                     if v != model[k]:
                         before[k] = model[k]
                         after[k] = v

@@ -4,9 +4,9 @@ import shutil
 import zipfile
 from chiki.contrib.common import Channel, AndroidVersion
 from flask import flash, redirect, current_app
-from flask.ext.admin import expose
-from flask.ext.wtf import Form
-from flask.ext.wtf.file import FileField
+from flask_admin import expose
+from flask_wtf import Form
+from flask_wtf.file import FileField
 from wtforms import SelectField
 from wtforms.validators import DataRequired
 from .views import BaseView

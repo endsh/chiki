@@ -4,7 +4,7 @@ from chiki.web import error
 from chiki.contrib.users.base import user_manager as um
 from flask import Blueprint, request, render_template, redirect
 from flask import url_for, current_app
-from flask.ext.login import current_user, login_user, logout_user, login_required
+from flask_login import current_user, login_user, logout_user, login_required
 
 bp = Blueprint('users', __name__)
 

@@ -87,7 +87,7 @@ class FileProxy(object):
                           filename=value.get('filename'))
         elif isinstance(value, (tuple, list)) and len(value) == 2:
             self._process(stream=value[0], format=value[1])
-        elif isinstance(value, (str, unicode)):
+        elif isinstance(value, str):
             self._process(filename=value)
         elif hasattr(value, 'read'):
             self._process(stream=value)

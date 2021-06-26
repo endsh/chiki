@@ -1,6 +1,6 @@
 # coding: utf-8
 from __future__ import unicode_literals
-from flask.ext.restful import abort as _abort
+from flask_restful import abort as _abort
 
 _code = 0
 def code(n=None):
@@ -13,7 +13,7 @@ def code(n=None):
 _keys = {}
 _msgs = {}
 def M(**kwargs):
-    for key, n in kwargs.iteritems():
+    for key, n in kwargs.items():
         globals()[key] = code(n)
         _keys[globals()[key]] = key
         _msgs[globals()[key]] = key if type(n) == int else n

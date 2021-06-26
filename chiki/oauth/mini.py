@@ -3,7 +3,7 @@ import json
 import base64
 import inspect
 import requests
-import urlparse
+import urllib.parse as urlparse
 import werobot.client
 import functools
 import traceback
@@ -17,8 +17,8 @@ from chiki.contrib.common import Item
 from datetime import datetime
 from flask import current_app, request, redirect, url_for
 from flask import make_response, render_template_string
-from urllib import quote, urlencode
-from flask.ext.login import current_user, login_user
+from urllib.parse import quote
+from flask_login import current_user, login_user
 
 __all__ = [
     'Mini',
@@ -59,7 +59,7 @@ class Mini(Base):
             js_code=code,
             grant_type='authorization_code',
         )
-        return '%s?%s' % (self.JSCODE_URL, urlencode(query))
+        return '%s?%s' % (self.JSCODE_URL, quote(query))
 
     def jscode(self):
         ct = request.headers.get('Content-Type', '')

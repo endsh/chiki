@@ -2,7 +2,7 @@
 import os
 import random
 import string
-from cStringIO import StringIO
+from io import StringIO
 from flask import current_app, session, request, make_response
 from wheezy.captcha import image
 from .settings import FONT_ROOT
@@ -13,7 +13,7 @@ __all__ = [
 ]
 
 _keys = set()
-_codes = string.uppercase + string.digits
+_codes = string.ascii_uppercase + string.digits
 for code in '0oIl1':
    _codes = _codes.replace(code, '')
 
@@ -75,9 +75,9 @@ def code2image(code):
         drawings=[
             image.background(random.choice(BG_COLORS)),
             image.text(
-                fonts=FONTS, 
+                fonts=FONTS,
                 font_sizes=(size, size + 2, size + 2),
-                color=random.choice(TEXT_COLORS), 
+                color=random.choice(TEXT_COLORS),
                 drawings=[image.rotate(), image.offset()],
             ),
         ],

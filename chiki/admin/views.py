@@ -4,16 +4,16 @@ import gc
 import traceback
 from datetime import datetime
 from flask import current_app, redirect, flash, request
-from flask.ext.login import current_user
-from flask.ext.admin import AdminIndexView as _AdminIndexView, expose
-from flask.ext.admin.actions import action
-from flask.ext.admin.babel import gettext, ngettext, lazy_gettext
-from flask.ext.admin.base import BaseView as _BaseView
-from flask.ext.admin.contrib.mongoengine import ModelView as _ModelView
-from flask.ext.admin.contrib.mongoengine.helpers import format_error
-from flask.ext.admin.contrib.sqla import ModelView as _SModelView
-from flask.ext.admin.model.base import BaseModelView
-from flask.ext.admin._compat import string_types, with_metaclass
+from flask_login import current_user
+from flask_admin import AdminIndexView as _AdminIndexView, expose
+from flask_admin.actions import action
+from flask_admin.babel import gettext, ngettext, lazy_gettext
+from flask_admin.base import BaseView as _BaseView
+from flask_admin.contrib.mongoengine import ModelView as _ModelView
+from flask_admin.contrib.mongoengine.helpers import format_error
+from flask_admin.contrib.sqla import ModelView as _SModelView
+from flask_admin.model.base import BaseModelView
+from flask_admin._compat import string_types, with_metaclass
 from mongoengine.fields import IntField, LongField, DecimalField, FloatField
 from mongoengine.fields import StringField, ReferenceField, ObjectIdField, ListField
 from mongoengine.fields import BooleanField, DateTimeField
@@ -43,7 +43,7 @@ model_signals = signal('change')
 # def model_operating(model, type, **kwargs):
 #     before = after = dict(id=model.id)
 #     if kwargs.get('form'):
-#         for k, v in kwargs.get('form').data.iteritems():
+#         for k, v in kwargs.get('form').data.items():
 #             if v != model[k]:
 #                 before[k] = model[k]
 #                 after[k] = v
@@ -415,10 +415,10 @@ class ModelView(with_metaclass(CoolAdminMeta, _ModelView)):
 
     @expose('/dropdown')
     def dropdown(self):
-        id = request.args.get('id', 0, unicode)
+        id = request.args.get('id', 0, str)
         val = request.args.get('key', '')
-        name = request.args.get('name', '', unicode)
-        value = request.args.get('value', '', unicode)
+        name = request.args.get('name', '', str)
+        value = request.args.get('value', '', str)
         model = self.model
 
         group = current_user.group

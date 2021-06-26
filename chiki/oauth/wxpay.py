@@ -262,7 +262,7 @@ class WXPay(Base):
             return dict(return_code='ERROR', return_msg=str(e))
 
     def sign(self, config=dict(), **kwargs):
-        keys = sorted(filter(lambda x: x[1], kwargs.iteritems()), key=lambda x: x[0])
+        keys = sorted(filter(lambda x: x[1], kwargs.items()), key=lambda x: x[0])
         text = '&'.join(['%s=%s' % x for x in keys])
         text += '&key=%s' % self.get_config('key', config=config)
         return hashlib.md5(text.encode('utf-8')).hexdigest().upper()

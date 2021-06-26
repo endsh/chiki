@@ -4,9 +4,9 @@ import os.path as op
 from datetime import datetime
 from operator import itemgetter
 from flask import redirect
-from flask.ext.admin import expose
-from flask.ext.admin.contrib.fileadmin import FileAdmin
-from flask.ext.admin._compat import with_metaclass
+from flask_admin import expose
+from flask_admin.contrib.fileadmin import FileAdmin
+from flask_admin._compat import with_metaclass
 from .metaclass import CoolAdminMeta
 
 __all__ = [

@@ -4,13 +4,13 @@ import json
 import zipfile
 from flask import Blueprint, request, current_app
 from flask import abort, redirect, Response
-from flask.ext.login import current_user
-from cStringIO import StringIO
+from flask_login import current_user
+from io import StringIO
 from shutil import copyfileobj
 from chiki.utils import json_success
 from .models import AndroidVersion, Enable, ShareLog, TraceLog
 
-bp = Blueprint('chiki.common', __name__)
+bp = Blueprint('chiki_common', __name__)
 ANDROID_URL = '/static/android/%(version)s/%(name)s_%(version)s_%(channel)d.apk'
 ANDROID_PATH = 'android/%(version)s/%(name)s_%(version)s.apk'
 apkinfo = {

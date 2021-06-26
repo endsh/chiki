@@ -1,6 +1,6 @@
 # coding: utf-8
-from flask.ext.admin.model.filters import convert as _convert
-from flask.ext.admin.contrib.mongoengine.filters import (
+from flask_admin.model.filters import convert as _convert
+from flask_admin.contrib.mongoengine.filters import (
     BaseMongoEngineFilter, FilterEqual, FilterNotEqual, FilterConverter,
 )
 from bson.objectid import ObjectId
@@ -11,7 +11,7 @@ class BaseReferenceFilter(BaseMongoEngineFilter):
     def __init__(self, column, name, ref_type=None, options=None, data_type=None):
         super(BaseReferenceFilter, self).__init__(column, name, options, data_type)
         self.ref_type = ref_type
-    
+
     def clean(self, value):
         if self.ref_type == int:
             return int(float(value))
@@ -36,7 +36,7 @@ class BaseObjectIdFilter(BaseMongoEngineFilter):
     def __init__(self, column, name, ref_type=None, options=None, data_type=None):
         super(BaseObjectIdFilter, self).__init__(column, name, options, data_type)
         self.ref_type = ref_type
-    
+
     def clean(self, value):
         if self.ref_type == int:
             return int(float(value))
@@ -61,7 +61,7 @@ class BaseListFilter(BaseMongoEngineFilter):
     def __init__(self, column, name, ref_type=None, options=None, data_type=None):
         super(BaseListFilter, self).__init__(column, name, options, data_type)
         self.ref_type = ref_type
-    
+
     def clean(self, value):
         if self.ref_type == int:
             return int(float(value))

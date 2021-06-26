@@ -2,8 +2,8 @@
 import os
 import json
 from flask import current_app
-from flask.ext.admin import Admin as _Admin, AdminIndexView
-from flask.ext.admin.menu import MenuView, MenuCategory, MenuLink
+from flask_admin import Admin as _Admin, AdminIndexView
+from flask_admin.menu import MenuView, MenuCategory, MenuLink
 from .formatters import *
 from .static import *
 from .views import *
@@ -37,7 +37,7 @@ class Admin(_Admin):
 
     def _set_admin_index_view(self, index_view=None,
                               endpoint=None, url=None):
-        self.index_view = (index_view or self.index_view or 
+        self.index_view = (index_view or self.index_view or
                            AdminIndexView(endpoint=endpoint, url=url))
         self.endpoint = endpoint or self.index_view.endpoint
         self.url = url or self.index_view.url

@@ -13,7 +13,7 @@ def code(n=None):
 _keys = {}
 _msgs = {}
 def M(**kwargs):
-    for key, n in kwargs.iteritems():
+    for key, n in kwargs.items():
         globals()[key] = code(n)
         _keys[globals()[key]] = key
         _msgs[globals()[key]] = key if type(n) == int else n

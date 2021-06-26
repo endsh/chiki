@@ -5,8 +5,8 @@ import inspect
 from chiki.contrib.common.models import StatLog
 from datetime import datetime, timedelta
 from flask import request
-from flask.ext.admin import expose
-from flask.ext.admin.base import _wrap_view
+from flask_admin import expose
+from flask_admin.base import _wrap_view
 from .utils import json_success
 
 
@@ -283,10 +283,10 @@ def statistics(tpl=None, modal=False, projects=None, **kwargs):
         datas = getattr(cls, 'datas', None)
         # data = getattr(cls, 'data', None)
         if datas:
-            for key, subs in datas.iteritems():
+            for key, subs in datas.items():
                 init_stat(cls, key, subs, tpl if tpl is not None else default, projects, modal)
         # if data:
-        #     for key, subs in data.iteritems():
+        #     for key, subs in data.items():
         #         init_stat(cls, key, subs, tpl if tpl is not None else default, projects, modal)
         for p in dir(cls):
             attr = getattr(cls, p)
@@ -316,9 +316,9 @@ class Stat(object):
         if type(_value) is list:
             for item in _value:
                 if type(item['value']) == dict:
-                    for sk, sv in item['value'].iteritems():
+                    for sk, sv in item['value'].items():
                         if type(sv) == dict:
-                            for xk, xv in sv.iteritems():
+                            for xk, xv in sv.items():
                                 query = dict(key=_key.format(_id=item['_id'], key=sk, skey=xk),
                                      day=_day, hour=_hour)
                                 StatLog.objects(**query).update(

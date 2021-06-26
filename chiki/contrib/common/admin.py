@@ -5,7 +5,7 @@ import os
 import qrcode as _qrcode
 import traceback
 from PIL import Image, ImageDraw, ImageFont
-from StringIO import StringIO
+from io import StringIO
 from chiki.admin import ModelView, formatter_len, formatter_icon, formatter
 from chiki.admin import formatter_popover, formatter_model
 from chiki.admin import formatter_text, formatter_link, popover, quote, escape
@@ -17,8 +17,8 @@ from chiki.utils import json_success, json_error
 from datetime import datetime
 from wtforms.fields import TextAreaField, SelectField
 from flask import current_app, url_for, request
-from flask.ext.admin import expose
-from flask.ext.admin.form import BaseForm
+from flask_admin import expose
+from flask_admin.form import BaseForm
 from .models import View, Item
 from ...jinja import markupper
 
@@ -50,7 +50,7 @@ def check_bool(model):
     if model.value in tof:
         return type_bool(model)
     else:
-        data = unicode(model.value)
+        data = str(model.value)
         if len(data) > 33:
             return get_span(data, data[:32] + '...')
         return model.value
@@ -85,10 +85,10 @@ class ItemView(ModelView):
 
     @expose('/dropdowns')
     def dropdown(self):
-        id = request.args.get('id', 0, unicode)
+        id = request.args.get('id', 0, str)
         val = request.args.get('key', '')
-        name = request.args.get('name', '', unicode)
-        value = request.args.get('value', '', unicode)
+        name = request.args.get('name', '', str)
+        value = request.args.get('value', '', str)
         model = self.model
 
         if not val:
@@ -204,7 +204,7 @@ class ChannelView(ModelView):
     column_formatters = dict(
         stat=formatter_link(lambda m: (
             '<i class="fa fa-line-chart"></i>',
-            '/admin/channel/stat?%s' % urllib.urlencode(dict(id=str(m.id)))),
+            '/admin/channel/stat?%s' % urllib.quote(dict(id=str(m.id)))),
             html=True, class_='btn btn-default btn-sm',
             data_toggle="modal",
             data_target="#simple-modal",

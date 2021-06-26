@@ -5,8 +5,8 @@ import difflib
 from chiki.utils import strip
 from flask import current_app, request
 from flask.signals import got_request_exception
-from flask.ext.restful import Api as _Api, Resource as _Resource, reqparse
-from flask.ext.restful.utils import error_data
+from flask_restful import Api as _Api, Resource as _Resource, reqparse
+# from flask_restful.utils import error_data
 from werkzeug.http import HTTP_STATUS_CODES
 from .const import abort
 
@@ -37,7 +37,7 @@ class Api(_Api):
             else:
                 raise e
         code = getattr(e, 'code', 500)
-        data = getattr(e, 'data', error_data(code))
+        # data = getattr(e, 'data', error_data(code))
         headers = {}
 
         if code >= 500:

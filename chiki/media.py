@@ -30,12 +30,12 @@ class MediaManager(object):
         return dict((x, []) for x in self.keys)
 
     def add(self, **options):
-        for key, value in options.iteritems():
+        for key, value in options.items():
             if key in self.keys:
                 self._add(self.file['default'][key], value)
             else:
                 self.file[key] = self.default
-                for k, v in value.iteritems():
+                for k, v in value.items():
                     if k in self.keys:
                         self._add(self.file[key][k], v)
 
@@ -123,4 +123,4 @@ class MediaManager(object):
     def static_ie8(self):
         ie8 = self.ie8x if self.app.debug else self.ie8
         htmls = [self.static_js(x) for x in ie8]
-        return markup('    <!--[if lt IE 9]>\n%s\n    <![endif]-->' % '\n'.join(htmls)) 
+        return markup('    <!--[if lt IE 9]>\n%s\n    <![endif]-->' % '\n'.join(htmls))

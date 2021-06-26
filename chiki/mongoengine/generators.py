@@ -26,12 +26,12 @@ class DatetimeGenerator(BaseGenerator):
         self.local = local
         self.tpl = '%Y%m%d/%H%M%S' if self.local else '%Y%m%d%H%M%S'
 
-    stamp = long(time.time())
+    stamp = int(time.time())
     index = 0
 
     @staticmethod
     def get_index():
-        if long(time.time()) > DatetimeGenerator.stamp:
+        if int(time.time()) > DatetimeGenerator.stamp:
             DatetimeGenerator.stamp = time.time()
             DatetimeGenerator.index = 0
         DatetimeGenerator.index += 1

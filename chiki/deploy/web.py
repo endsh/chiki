@@ -186,7 +186,7 @@ def clone4github():
         'simi': 'git@gitlab.com:xiaoku/simi.git',
         'flask-admin': "https://github.com/flask-admin/flask-admin.git",
     }
-    for name, repo in repos.iteritems():
+    for name, repo in repos.items():
         folder = os.path.join(env.src, name)
         if type(repo) == dict:
             clone2setup(name, folder, repo['repo'], repo['branch'])
@@ -256,7 +256,7 @@ def update_chiki():
             'branch': 'old',
         },
     }
-    for name, repo in repos.iteritems():
+    for name, repo in repos.items():
         folder = os.path.join(env.src, name)
         if type(repo) == dict:
             clone2setup(name, folder, repo['repo'], repo['branch'])

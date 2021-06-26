@@ -3,14 +3,11 @@ import sys
 import logging
 import logging.handlers
 import traceback
-from StringIO import StringIO
+from io import StringIO
 from datetime import datetime
 from chiki.contrib.common import Log
 from flask import request
 
-reload(sys)
-
-sys.setdefaultencoding('utf8')
 
 __all__ = [
     'Logger', 'init_logger', 'DEBUG_LOG_FORMAT',

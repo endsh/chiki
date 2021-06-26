@@ -23,16 +23,16 @@ class CoolManager(object):
 
     def load(self):
         self.loading = True
-        for name, view in _admin_registry.iteritems():
+        for name, view in _admin_registry.items():
             self.admin[name] = view
-        for name, doc in _document_registry.iteritems():
+        for name, doc in _document_registry.items():
             if not doc._meta['abstract'] and doc._is_document:
                 self.models[name] = doc
 
-        for name, model in self.models.iteritems():
+        for name, model in self.models.items():
             self.init_model(name, model)
 
-        for name, icon in self.cates.iteritems():
+        for name, icon in self.cates.items():
             data_view = View.objects(name=name, type=View.TYPE_CATE).first()
             if not data_view:
                 data_view = View(name=name, type=View.TYPE_CATE, label=name, icon=icon)
@@ -64,14 +64,14 @@ class CoolManager(object):
 
     def init_admin(self, admin):
         uses = []
-        for name, model in self.models.iteritems():
+        for name, model in self.models.items():
             if not getattr(model, 'NOT_ADD_ADMIN', False):
                 view = model._admin_view_cls(model)
                 model._admin_view_data.setup(admin, view)
                 admin.add_view(view)
                 uses.append(model._admin_view_cls)
 
-        for name, view in self.admin.iteritems():
+        for name, view in self.admin.items():
             if view not in uses:
                 for xview in admin._views:
                     if type(xview) == view:

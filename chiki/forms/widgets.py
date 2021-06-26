@@ -86,8 +86,8 @@ class KListWidget(object):
 
     def __call__(self, field, **kwargs):
         kwargs.setdefault('id', field.id)
-        sub_kwargs = dict((k[4:], v) for k, v in kwargs.iteritems() if k.startswith(self.sub_startswith))
-        kwargs = dict(filter(lambda x: not x[0].startswith(self.sub_startswith), kwargs.iteritems()))
+        sub_kwargs = dict((k[4:], v) for k, v in kwargs.items() if k.startswith(self.sub_startswith))
+        kwargs = dict(filter(lambda x: not x[0].startswith(self.sub_startswith), kwargs.items()))
         sub_html = '%s %s' % (self.sub_tag, html_params(**sub_kwargs))
         html = ['<%s %s>' % (self.html_tag, html_params(**kwargs))]
         for subfield in field:
@@ -117,8 +117,8 @@ class DragSelectWidget(object):
 
     def __call__(self, field, **kwargs):
         kwargs.setdefault('id', field.id)
-        sub_kwargs = dict((k[4:], v) for k, v in kwargs.iteritems() if k.startswith(self.sub_startswith))
-        kwargs = dict(filter(lambda x: not x[0].startswith(self.sub_startswith), kwargs.iteritems()))
+        sub_kwargs = dict((k[4:], v) for k, v in kwargs.items() if k.startswith(self.sub_startswith))
+        kwargs = dict(filter(lambda x: not x[0].startswith(self.sub_startswith), kwargs.items()))
         sub_html = '%s %s' % (self.sub_tag, html_params(**sub_kwargs))
         left = ['<%s %s>' % (self.html_tag, html_params(id='%s-left' % field.id, class_='drag-left drag-part'))]
         right = ['<%s %s>' % (self.html_tag, html_params(id='%s-right' % field.id, class_='drag-right drag-part'))]

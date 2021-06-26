@@ -144,6 +144,6 @@ class Form(with_metaclass(FormMeta, _Form), FormMixin):
         return d
 
     def populate_obj(self, obj):
-        for name, field in self._fields.iteritems():
+        for name, field in self._fields.items():
             if field.type != 'Label':
                 field.populate_obj(obj, name)

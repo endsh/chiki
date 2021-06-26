@@ -11,12 +11,11 @@ import functools
 import hashlib
 import traceback
 import requests
-import urlparse
-from urllib import urlencode
+from urllib import parse
 from datetime import datetime, date
-from StringIO import StringIO
+from io import StringIO
 from flask import jsonify, current_app, request, redirect
-from flask.ext.login import current_user
+from flask_login import current_user
 
 import urllib3
 urllib3.disable_warnings()
@@ -70,7 +69,7 @@ def strip(val, *args):
         return val
 
     if isinstance(val, dict):
-        return dict((x, strip(y) if x not in args else y) for x, y in val.iteritems())
+        return dict((x, strip(y) if x not in args else y) for x, y in val.items())
     if isinstance(val, list):
         return list(strip(x) for x in val)
     if hasattr(val, 'strip'):
@@ -254,7 +253,7 @@ def retry(times=3):
 
 def tpl_data(color="#333333", **kwargs):
     res = dict()
-    for key, value in kwargs.iteritems():
+    for key, value in kwargs.items():
         res[key] = dict(value=value, color=color)
     return res
 
@@ -295,7 +294,7 @@ def check_encode(text, code='gb18030'):
 
 def url_with_user(url):
     if current_user.is_authenticated() and current_user.is_user():
-        res = urlparse.urlparse(url)
+        res = parse.urlparse(url)
         if 'uid=' not in res.query:
             if res.query:
                 query = '%s&uid=%d' % (res.query, current_user.id)
@@ -308,14 +307,14 @@ def url_with_user(url):
 
 
 def get_url_arg(url, key):
-    res = urlparse.parse_qs(urlparse.urlparse(url).query).get(key)
+    res = parse.parse_qs(parse.urlparse(url).query).get(key)
     return res[0] if res else None
 
 
 def create_short_url(key, url, **kwargs):
     tpl = 'http://api.t.sina.com.cn/short_url/shorten.json?%s'
     res = requests.get(
-        tpl % urlencode(dict(source=key, url_long=url)), **kwargs).json()
+        tpl % parse.quote(dict(source=key, url_long=url)), **kwargs).json()
     return res[0]['url_short'] if res[0]['type'] == 0 else url
 
 
@@ -353,7 +352,7 @@ def is_debug():
 
 def sign(key, **kwargs):
     keys = sorted(filter(
-        lambda x: x[1] is not None, kwargs.iteritems()), key=lambda x: x[0])
+        lambda x: x[1] is not None, kwargs.items()), key=lambda x: x[0])
     text = '&'.join(['%s=%s' % x for x in keys])
     text += '&key=%s' % key
     return hashlib.md5(text.encode('utf-8')).hexdigest().upper()
@@ -361,8 +360,8 @@ def sign(key, **kwargs):
 
 def add_args(url, **kwargs):
     if '?' in url:
-        return url + '&' + urlencode(kwargs)
-    return url + '?' + urlencode(kwargs)
+        return url + '&' + parse.quote(kwargs)
+    return url + '?' + parse.quote(kwargs)
 
 
 def import_file(filename):
@@ -383,10 +382,10 @@ def unicode2utf8(obj):
     u = unicode2utf8
     if type(obj) == str:
         return obj
-    if isinstance(obj, unicode):
+    if isinstance(obj, str):
         return obj.encode('utf-8')
     if isinstance(obj, dict):
-        return dict((u(k), u(v)) for k, v in obj.iteritems())
+        return dict((u(k), u(v)) for k, v in obj.items())
     if isinstance(obj, list):
         return [u(x) for x in obj]
     return obj

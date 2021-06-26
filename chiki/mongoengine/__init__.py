@@ -1,5 +1,5 @@
 # coding: utf-8
-from flask.ext import mongoengine
+import flask_mongoengine as mongoengine
 from . import fields, pagination
 
 
@@ -14,7 +14,7 @@ class Chocies(object):
 
     def __init__(self, **kwargs):
         self.CHOICES = []
-        for key, value in kwargs.iteritems():
+        for key, value in kwargs.items():
             self.CHOICES.append((key, value))
             setattr(self, key.upper(), key)
         self.DICT = dict(self.CHOICES)

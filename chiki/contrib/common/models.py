@@ -6,12 +6,12 @@ import qrcode
 import random
 import traceback
 from PIL import Image, ImageFont, ImageDraw
-from StringIO import StringIO
-from chiki.base import db, cache
+from io import StringIO
+from chiki.base import db
 from chiki.utils import today, retry
 from datetime import datetime, timedelta
 from flask import current_app
-from flask.ext.login import current_user
+from flask_login import current_user
 
 
 class Enable(object):
@@ -63,7 +63,6 @@ class Item(db.Document):
     }
 
     @staticmethod
-    @cache.memoize(timeout=5)
     def get(key, default=0, name=None):
         item = Item.objects(key=key).first()
         if item:
@@ -101,7 +100,6 @@ class Item(db.Document):
             return item.value + num
 
     @staticmethod
-    @cache.memoize(timeout=5)
     def data(key, default='', name=None):
         item = Item.objects(key=key).first()
         if item:
@@ -191,7 +189,7 @@ class Choices(db.Document):
 
     @staticmethod
     def init():
-        for key, field in Choices.fields.iteritems():
+        for key, field in Choices.fields.items():
             Choices.init_field(key, field[1], field[0])
 
     @staticmethod
@@ -937,7 +935,7 @@ class Action(db.Document):
             active_icon=self.active_icon.base64,
             data=self.data,
             target=self.target,
-            share=unicode(self.share),
+            share=str(self.share),
             login=self.login,
             login_show=self.login_show,
             debug=self.debug,
@@ -995,7 +993,7 @@ class Slide(db.Document):
             name=self.name,
             icon=self.icon.link,
             target=self.target,
-            share=unicode(self.share),
+            share=str(self.share),
             login=self.login,
             login_show=self.login_show,
             debug=self.debug,

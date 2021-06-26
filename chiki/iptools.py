@@ -1,6 +1,6 @@
 # coding: utf-8
 import time
-import xmlrpclib
+import xmlrpc
 from flask import current_app
 
 __all__ = [
@@ -20,7 +20,7 @@ def tools():
 
     if time.time() - last > 300:
         try:
-            iptools = xmlrpclib.ServerProxy(location)
+            iptools = xmlrpc.client.ServerProxy(location)
         except Exception as e:
             print(str(e))
             iptools = None

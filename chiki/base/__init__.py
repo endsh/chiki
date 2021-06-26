@@ -1,12 +1,12 @@
 # coding: utf-8
 from flask import Blueprint, current_app
-from flask.ext.login import LoginManager
+from flask_login import LoginManager
 from ..mongoengine import MongoEngine
-from flask.ext.cache import Cache
+# from flask_cache import Cache
 
 db = MongoEngine()
 login = LoginManager()
-cache = Cache()
+# cache = Cache()
 page = Blueprint('page', __name__)
 
 
@@ -35,7 +35,7 @@ class Base(object):
             self.config = app.config.get(self.key or name.upper())
 
         self.puppets = dict()
-        for key, config in self.config.get('puppets', dict()).iteritems():
+        for key, config in self.config.get('puppets', dict()).items():
             self.puppets[key] = self.__class__(
                 app=app, key=key, config=config, holder=self)
 
@@ -55,7 +55,7 @@ class Base(object):
         else:
             value = self.config.get(key, default)
 
-        if repalce and isinstance(value, (str, unicode)):
+        if repalce and isinstance(value, str):
             return value.replace('[key]', self.get_key())
         return value
 

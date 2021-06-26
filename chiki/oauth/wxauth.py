@@ -2,7 +2,7 @@
 import json
 import inspect
 import requests
-import urlparse
+import urllib.parse as urlparse
 import werobot.client
 import functools
 from chiki.api import abort, success
@@ -13,7 +13,7 @@ from chiki.oauth.jssdk import JSSDK
 from datetime import datetime
 from flask import current_app, request, redirect, url_for
 from flask import make_response, render_template_string
-from urllib import quote, urlencode
+from urllib.parse import quote
 
 __all__ = [
     'WXAuth',
@@ -136,7 +136,7 @@ class WXAuth(Base):
 
     def quote(self, **kwargs):
         return dict((x, quote(y.encode('utf-8') if type(
-            y) is unicode else y)) for x, y in kwargs.iteritems())
+            y) is unicode else y)) for x, y in kwargs.items())
 
     def get_access_url(self, action, code, config=None):
         """ 生成获取access_token的链接 """
@@ -147,7 +147,7 @@ class WXAuth(Base):
             code=code,
             grant_type='authorization_code',
         )
-        return '%s?%s' % (self.ACCESS_URL, urlencode(query))
+        return '%s?%s' % (self.ACCESS_URL, quote(query))
 
     @err_logger
     def access_token(self, action, code, config=None):
@@ -163,7 +163,7 @@ class WXAuth(Base):
             refresh_token=token,
             grant_type='refresh_token',
         )
-        return '%s?%s' % (self.REFRESH_URL, urlencode(query))
+        return '%s?%s' % (self.REFRESH_URL, quote(query))
 
     @err_logger
     def refresh_token(self, action, token, config=None):
@@ -174,7 +174,7 @@ class WXAuth(Base):
     def get_userinfo_url(self, token, openid, lang='zh_CN'):
         """ access_token 获取用户信息的链接 """
         query = dict(access_token=token, openid=openid, lang=lang)
-        return '%s?%s' % (self.USERINFO_URL, urlencode(query))
+        return '%s?%s' % (self.USERINFO_URL, quote(query))
 
     @err_logger
     def get_userinfo(self, token, openid):
@@ -195,7 +195,7 @@ class WXAuth(Base):
     def get_check_url(self, token, openid):
         """ 检测用户access_token是否过期的链接 """
         query = dict(access_token=token, openid=openid)
-        return '%s?%s' % (self.CHECK_URL, urlencode(query))
+        return '%s?%s' % (self.CHECK_URL, quote(query))
 
     @err_logger
     def check_token(self, token, openid):

@@ -1,6 +1,6 @@
 # coding: utf-8
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 sql = SQLAlchemy()
 migrate = Migrate()
@@ -9,7 +9,7 @@ migrate = Migrate()
 class SessionMixin(object):
 
     def __init__(self, **kwargs):
-        for k, v in kwargs.iteritems():
+        for k, v in kwargs.items():
             setattr(self, k, v)
 
     def to_dict(self, *columns, **kwargs):

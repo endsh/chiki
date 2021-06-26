@@ -5,8 +5,8 @@ from chiki.api.const import *
 from chiki.contrib.common import Item
 from chiki.utils import is_json
 from flask import current_app, request, redirect
-from flask.ext.login import current_user, login_user, logout_user
-from urllib import urlencode
+from flask_login import current_user, login_user, logout_user
+from urllib.parse import quote as quote
 from . import wechat
 from .wechat import *
 
@@ -67,7 +67,7 @@ def init_oauth(app):
                     if is_json():
                         abort(NEED_BIND)
 
-                    query = urlencode(dict(next=request.url))
+                    query = quote(dict(next=request.url))
                     return redirect('%s?%s' % (config.bind_url, query))
                 elif current_user.phone or current_user.email or model == 'auto':
                     return

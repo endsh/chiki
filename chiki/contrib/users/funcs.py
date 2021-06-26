@@ -2,8 +2,7 @@
 import re
 import urllib
 from flask import current_app, url_for, render_template_string
-from flask.ext.mail import Message
-from chiki.sms import send_rong_sms, send_ihuyi_sms, send_jisu_sms
+from flask_mail import Message
 
 
 __all__ = [
@@ -48,15 +47,16 @@ def send_sms(code):
     if current_app.debug:
         print('验证码：', code.phone, code.code)
         return
+    return
 
-    tpl = current_app.config.get('SMS_TPL')
-    if current_app.config.get('SMS_IHUYI'):
-        res = send_ihuyi_sms(code.phone, tpl % code.code)
-    elif current_app.config.get('SMS_JISU'):
-        res = send_jisu_sms(code.phone, tpl % code.code)
-    else:
-        res = send_rong_sms(code.phone, [str(code.code)], tpl)
-    return res
+    # tpl = current_app.config.get('SMS_TPL')
+    # if current_app.config.get('SMS_IHUYI'):
+    #     res = send_ihuyi_sms(code.phone, tpl % code.code)
+    # elif current_app.config.get('SMS_JISU'):
+    #     res = send_jisu_sms(code.phone, tpl % code.code)
+    # else:
+    #     res = send_rong_sms(code.phone, [str(code.code)], tpl)
+    # return res
 
 
 def send_mail(code):

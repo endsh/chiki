@@ -2,7 +2,7 @@
 from flask import Blueprint, current_app
 from flask import redirect, render_template, request, url_for
 from chiki.contrib.admin.form import LoginForm
-from flask.ext.login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user
 from datetime import datetime
 from chiki.contrib.admin.models import AdminUserLoginLog
 from chiki.contrib.common import Item
