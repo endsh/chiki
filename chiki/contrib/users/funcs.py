@@ -46,7 +46,7 @@ bind_email_html = u"""
 
 def send_sms(code):
     if current_app.debug:
-        print '验证码：', code.phone, code.code
+        print('验证码：', code.phone, code.code)
         return
 
     tpl = current_app.config.get('SMS_TPL')

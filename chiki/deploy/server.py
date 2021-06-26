@@ -23,7 +23,7 @@ def _stop(*args):
             try:
                 xrun('uwsgi --stop %s/run/%s.pid' % (env.path, arg))
             except FabricException as e:
-                print str(e)
+                print(str(e))
 
 
 @roles('web')

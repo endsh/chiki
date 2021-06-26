@@ -325,7 +325,6 @@ class ShareLog(db.Document):
 
                 re = current_app.mini.decrypt(
                     self.session_key, encryptedData, iv)
-                print 're: ', re
                 if re['openGId']:
                     self.openGId.append(re['openGId'])
         self.save()

@@ -56,7 +56,7 @@ def single(filename):
 
             try:
                 pidfile.close()
-            except IOError, err:
+            except IOError as err:
                 if err.errno != 9:
                     return
             os.remove(filename)
@@ -82,7 +82,7 @@ def loop(name, sleep=5):
                 fd.write(str(os.getpid()))
 
             if current_app.debug:
-                print 'start service with process:', os.getpid()
+                print('start service with process:', os.getpid())
 
             signal.signal(signal.SIGTERM, signal_term)
 

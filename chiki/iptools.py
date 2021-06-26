@@ -21,8 +21,8 @@ def tools():
     if time.time() - last > 300:
         try:
             iptools = xmlrpclib.ServerProxy(location)
-        except Exception, e:
-            print str(e)
+        except Exception as e:
+            print(str(e))
             iptools = None
 
         last = time.time()
@@ -40,7 +40,7 @@ def parse_ip(ip, format='%(pro_d)s-%(city_d)s # %(isp_d)s'):
             res = t.parse_ip(ip)
             if res['pro_d']:
                 return format % res
-        except Exception, e:
-            print str(e)
+        except Exception as e:
+            print(str(e))
 
     return ip or ''

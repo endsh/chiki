@@ -27,7 +27,7 @@ def push_helper(alert=None, type=None, title=None, builder_id=1, badge="+1", aud
     try:
         obj.send()
         return 0
-    except jpush.JPushFailure, e:
+    except jpush.JPushFailure as e:
         return e.error_code
 
 

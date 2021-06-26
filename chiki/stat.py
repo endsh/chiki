@@ -413,7 +413,7 @@ class Stat(object):
     def all(self):
         now = datetime.now()
         while now >= self.start:
-            print 'stat:', now
+            print('stat:', now)
             self.hour(now, day=now.hour == 0)
             now -= timedelta(hours=1)
 
@@ -424,9 +424,9 @@ class Stat(object):
         def run_stat(model='last'):
             if model in ['last', 'simple']:
                 start = time.time()
-                print 'stat hour:', datetime.now(),
+                print('stat hour:', datetime.now())
                 self.hour(datetime.now())
-                print time.time() - start
+                print(time.time() - start)
             elif model == 'all':
                 self.all()
 

@@ -44,7 +44,6 @@ def type_bool(model):
 
 @formatter_model
 def check_bool(model):
-    print 'type: ', model.type
     if model.type == 'int':
         return model.value
     tof = ['true', 'false', 'True', 'False', True, False]

@@ -56,7 +56,7 @@ def media(source='../media/web/dist', target=None, app='web', restart=True):
                 r'echo "%(line)s" >> %(file)s || '
                 r'sed -r -i "s#%(prefix)s.*#%(line)s#" %(file)s'
             )
-            print tpl % dict(prefix=prefix, file=file, line=line)
+            print(tpl % dict(prefix=prefix, file=file, line=line))
             local(tpl % dict(prefix=prefix, file=file, line=line))
 
     with settings(stage='all'):

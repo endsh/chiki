@@ -71,7 +71,7 @@ class SimpleWorker(BaseWorker):
             self.loop()
         except KeyboardInterrupt:
             self.exit('KeyboardInterrupt of [%s]' % self.name)
-        except Exception, e:
+        except Exception as e:
             self.log.warn('Exception of [%s]: %s' % (self.name, str(e)))
             self.log.debug(traceback.format_exc(limit=50))
 

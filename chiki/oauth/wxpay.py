@@ -77,7 +77,7 @@ class WXPay(Base):
                     res = self.wxpay_callback(data)
                 else:
                     res = self.wxpay_callback(data, type)
-        except Exception, e:
+        except Exception as e:
             current_app.logger.error('wxpay callbck except: %s' % str(e))
         return res or ''
 
@@ -146,7 +146,7 @@ class WXPay(Base):
         try:
             xml = requests.post(self.PREPAY_URL, data=data).content
             return self.xml2dict(xml)
-        except Exception, e:
+        except Exception as e:
             current_app.logger.error(traceback.format_exc())
             return dict(return_code='ERROR', return_msg=str(e))
 
@@ -183,7 +183,7 @@ class WXPay(Base):
                 self.SEND_RED_PACK, data=data, cert=self.get_config('cert')
             ).content
             return self.xml2dict(xml)
-        except Exception, e:
+        except Exception as e:
             current_app.logger.error(traceback.format_exc())
             return dict(return_code='ERROR', return_msg=str(e))
 
@@ -204,7 +204,7 @@ class WXPay(Base):
                 self.TRANSFERS, data=data, cert=cert,
             ).content
             return self.xml2dict(xml)
-        except Exception, e:
+        except Exception as e:
             current_app.logger.error(traceback.format_exc())
             return dict(return_code='ERROR', return_msg=str(e))
 
@@ -237,7 +237,7 @@ class WXPay(Base):
                 self.REFUND_URL, data=data, cert=self.get_config('cert')
             ).content
             return self.xml2dict(xml)
-        except Exception, e:
+        except Exception as e:
             current_app.logger.error(traceback.format_exc())
             return dict(return_code='ERROR', return_msg=str(e))
 
@@ -257,7 +257,7 @@ class WXPay(Base):
         try:
             xml = requests.post(self.REFUND_QUERY, data=data).content
             return self.xml2dict(xml)
-        except Exception, e:
+        except Exception as e:
             current_app.logger.error(traceback.format_exc())
             return dict(return_code='ERROR', return_msg=str(e))
 
