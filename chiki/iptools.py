@@ -15,7 +15,7 @@ def tools():
     if iptools is not None:
         return iptools
 
-    location = current_app.config.get('IPTOOLS_LOCATION', 
+    location = current_app.config.get('IPTOOLS_LOCATION',
         'http://127.0.0.1:12121')
 
     if time.time() - last > 300:
