@@ -1,18 +1,26 @@
 # coding: utf-8
+from chiki.base import db
 from chiki.admin import ModelView
-from chiki.admin.formatters import formatter_link
+from chiki.admin.formatters import formatter_link, formatter_model
+
+
+def format_info(m):
+    return '姓名：%s<br>登陆账号：%s<br>登陆密码：%s<br>登陆网址：%s' % (
+        m.name, m.username, m.password,
+        db.Item.get('login_url', 'http://localhost/'))
 
 
 class AdminUserView(ModelView):
     """ 管理员 """
     # can_edit = False
     # can_delete = False
-    column_list = ('username', 'root', 'active', 'logined',
-                   'modified', 'created', 'group')
+    column_list = ('name', 'username', 'root', 'active', 'logined',
+                   'modified', 'created', 'group', 'info')
     column_center_list = column_list
     column_formatters = dict(
         username=formatter_link(
             lambda m: (m.username, '/admin/adminchangelog/?flt1_2=%s' % m.id)),
+        info=formatter_model(format_info),
     )
 
 
