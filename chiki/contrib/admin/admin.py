@@ -7,7 +7,7 @@ from chiki.admin.formatters import formatter_link, formatter_model
 def format_info(m):
     return '姓名：%s<br>登陆账号：%s<br>登陆密码：%s<br>登陆网址：%s' % (
         m.name, m.username, m.password,
-        db.Item.get('login_url', 'http://localhost/'))
+        db.Item.data('login_url', 'http://localhost/'))
 
 
 class AdminUserView(ModelView):
