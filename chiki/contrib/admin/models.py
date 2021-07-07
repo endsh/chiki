@@ -48,6 +48,7 @@ class Group(db.Document):
     """ 管理组 """
 
     name = db.StringField(verbose_name='组名')
+    roles = db.ListField(db.StringField(), verbose_name='规则')
     power = db.ListField(db.ReferenceField('View'), verbose_name='使用权限')
     can_create = db.ListField(db.ReferenceField('View'), verbose_name='创建权限')
     can_edit = db.ListField(db.ReferenceField('View'), verbose_name='编辑权限')
