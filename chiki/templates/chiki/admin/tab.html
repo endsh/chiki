@@ -12,23 +12,57 @@
       {% if admin_view.tabs %}
           {% for tab in admin_view.tabs %}
               {% if not tab.role or tab.role in current_user.group.roles or current_user.root %}
-                  {% if request.endpoint.endswith(tab.endpoint) %}
-                  <li class="active">
-                      <a href="javascript:void(0);" title="{{ tab.title }}">{{ tab.text }}</a>
-                  </li>
+                  {% if tab.dropdown %}
+                      <li role="presentation" class="dropdown {% for item in tab.tabs %}
+                          {% if request.endpoint.endswith(item.endpoint) %}active{% endif %}
+                      {% endfor %}">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                          {{ tab.text }} <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                          {% for item in tab.tabs %}
+                              {% if not item.role or item.role in current_user.group.roles or current_user.root %}
+                                  {% if request.endpoint.endswith(item.endpoint) %}
+                                  <li class="active">
+                                      <a href="javascript:void(0);" title="{{ item.title }}">{{ item.text }}</a>
+                                  </li>
+                                  {% else %}
+                                  <li>
+                                      {% if item.kwargs %}
+                                          {% if callable(item.kwargs) %}
+                                              {% set tab_url = get_url(item.endpoint, url=return_url, **item.kwargs()) %}
+                                          {% else %}
+                                              {% set tab_url = get_url(item.endpoint, url=return_url, **item.kwargs) %}
+                                          {% endif %}
+                                      {% else %}
+                                          {% set tab_url = get_url(item.endpoint, url=return_url) %}
+                                      {% endif %}
+                                      <a href="{{ tab_url }}" title="{{ item.title }}">{{ item.text }}</a>
+                                  </li>
+                                  {% endif %}
+                              {% endif %}
+                          {% endfor %}
+                        </ul>
+                      </li>
                   {% else %}
-                  <li>
-                      {% if tab.kwargs %}
-                          {% if callable(tab.kwargs) %}
-                              {% set tab_url = get_url(tab.endpoint, url=return_url, **tab.kwargs()) %}
-                          {% else %}
-                              {% set tab_url = get_url(tab.endpoint, url=return_url, **tab.kwargs) %}
-                          {% endif %}
+                      {% if request.endpoint.endswith(tab.endpoint) %}
+                      <li class="active">
+                          <a href="javascript:void(0);" title="{{ tab.title }}">{{ tab.text }}</a>
+                      </li>
                       {% else %}
-                          {% set tab_url = get_url(tab.endpoint, url=return_url) %}
+                      <li>
+                          {% if tab.kwargs %}
+                              {% if callable(tab.kwargs) %}
+                                  {% set tab_url = get_url(tab.endpoint, url=return_url, **tab.kwargs()) %}
+                              {% else %}
+                                  {% set tab_url = get_url(tab.endpoint, url=return_url, **tab.kwargs) %}
+                              {% endif %}
+                          {% else %}
+                              {% set tab_url = get_url(tab.endpoint, url=return_url) %}
+                          {% endif %}
+                          <a href="{{ tab_url }}" title="{{ tab.title }}">{{ tab.text }}</a>
+                      </li>
                       {% endif %}
-                      <a href="{{ tab_url }}" title="{{ tab.title }}">{{ tab.text }}</a>
-                  </li>
                   {% endif %}
               {% endif %}
           {% endfor %}
