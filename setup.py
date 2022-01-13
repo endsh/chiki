@@ -64,7 +64,7 @@ setup(
         'WTForms==2.0.2',
         'Flask-Script==2.0.5',
         'wheezy.captcha==0.1.44',
-        'Pillow==2.7.0',
+        'Pillow==9.0.0',
         'Flask-SQLAlchemy==2.0',
         'Flask-Migrate==1.3.0',
         'blinker==1.3',
