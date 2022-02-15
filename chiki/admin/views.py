@@ -483,10 +483,26 @@ class SModelView(_SModelView):
             menu_icon_type=menu_icon_type, menu_icon_value=menu_icon_value)
 
 
-class AdminIndexView(with_metaclass(CoolAdminMeta, _AdminIndexView)):
+class AdminIndexView(with_metaclass(CoolAdminMeta, _BaseView)):
     """ 仪表盘 """
 
     MENU_ICON = 'diamond'
+
+    def __init__(self, name=None, category=None,
+                 endpoint=None, url=None,
+                 template='admin/index.html',
+                 static_folder='static',
+                 menu_class_name=None,
+                 menu_icon_type=None,
+                 menu_icon_value=None):
+        super(AdminIndexView, self).__init__(name,
+                                             category,
+                                             endpoint or 'admin',
+                                             '/admin' if url is None else url,
+                                             static_folder,
+                                             menu_class_name=menu_class_name,
+                                             menu_icon_type=menu_icon_type,
+                                             menu_icon_value=menu_icon_value)
 
     def is_accessible(self):
         if current_user.root is True:

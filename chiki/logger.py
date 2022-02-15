@@ -36,20 +36,21 @@ class ChikiHandler(logging.Handler):
                 exc = sio.getvalue()
                 sio.close()
 
-            Log(
-                name=record.name,
-                levelname=record.levelname,
-                thread=record.thread,
-                threadName=record.threadName,
-                module=record.module,
-                funcName=record.funcName,
-                lineno=record.lineno,
-                message=record.msg,
-                exc=exc,
-                url=request.url,
-                user_agent=request.headers.get('User-Agent', ''),
-                created=datetime.fromtimestamp(record.created),
-            ).save()
+            with self.app.app_context():
+                Log(
+                    name=record.name,
+                    levelname=record.levelname,
+                    thread=record.thread,
+                    threadName=record.threadName,
+                    module=record.module,
+                    funcName=record.funcName,
+                    lineno=record.lineno,
+                    message=record.msg,
+                    exc=exc,
+                    # url=request.url,
+                    # user_agent=request.headers.get('User-Agent', ''),
+                    created=datetime.fromtimestamp(record.created),
+                ).save()
         except:
             traceback.print_exc()
 
@@ -66,6 +67,7 @@ class Logger(object):
     def init_app(self, app):
         config = app.config.get('LOGGING')
         handler = ChikiHandler()
+        handler.app = app
         handler.setLevel(logging.INFO)
         app.logger.addHandler(handler)
         if not config:

@@ -13,7 +13,7 @@
           {% for tab in admin_view.tabs %}
               {% if not tab.role or tab.role in current_user.group.roles or current_user.root %}
                   {% if tab.dropdown %}
-                      <li role="presentation" class="dropdown {% for item in tab.tabs %}
+                      <li class="dropdown {% for item in tab.tabs %}
                           {% if request.endpoint.endswith(item.endpoint) %}active{% endif %}
                       {% endfor %}">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
