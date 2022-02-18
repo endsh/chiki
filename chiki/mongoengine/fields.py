@@ -105,7 +105,7 @@ class FileProxy(object):
                 if not self.filename and filename:
                     self.filename = self.instance.put(stream, filename=filename)
                 elif self.instance.rename or not self.filename:
-                    self.filename = self.instance.put(stream, format=format)
+                    self.filename = self.instance.put(stream, filename=filename, format=format)
                 else:
                     self.instance.put(stream, filename=self.filename)
         elif filename is not None:
