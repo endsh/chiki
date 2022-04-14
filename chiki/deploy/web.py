@@ -144,7 +144,8 @@ def setup(name, folder, copy=False, is_scp=True):
     source = os.path.join(folder, '%s.tar.gz' % name)
     target = os.path.join(env.dist, '%s.tar.gz' % name)
     if is_scp:
-        scp(source, target, env.repo_host, getattr(env, 'repo_password', ''))
+        if env.repo_host:
+            scp(source, target, env.repo_host, getattr(env, 'repo_password', ''))
     else:
         put(source, target)
 
