@@ -26,7 +26,7 @@ blinker==1.3
 bottle==0.12.9
 chardet==2.3.0
 click==6.2
-cookiecutter==1.1.0
+cookiecutter==2.1.1
 dicttoxml==1.6.6
 flask-mongoengine==0.7.1
 future==0.15.2
