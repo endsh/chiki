@@ -57,5 +57,9 @@ class Pagination(_Pagination):
 
     def json(self, tojson=lambda x: x.json, **kwargs):
         return success(
+            page=self.page,
+            per_page=self.per_page,
+            pages=self.pages,
+            total=self.total,
             items=[tojson(x) for x in self.items],
             next=self.next_link, **kwargs)
